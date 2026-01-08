@@ -1,0 +1,628 @@
+/* ==============================
+   VARIABLES & RESET
+   ============================== */
+:root {
+    /* Light Mode Colors (default) */
+    --bg-primary: #F8F9FC;
+    --card-bg: #FFFFFF;
+    --text-primary: #1A202C;
+    --text-secondary: rgba(26, 32, 44, 0.6);
+    --accent-color: #3182CE;
+    --accent-light: #EBF8FF;
+    --border-light: rgba(0, 0, 0, 0.05);
+    --shadow-light: rgba(0, 0, 0, 0.04);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    
+    /* Animation */
+    --transition-default: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: 0.2s ease;
+}
+
+.dark-mode {
+    /* Dark Mode Colors */
+    --bg-primary: #0F172A;
+    --card-bg: #1E293B;
+    --text-primary: #F7FAFC;
+    --text-secondary: rgba(247, 250, 252, 0.6);
+    --accent-color: #63B3ED;
+    --accent-light: rgba(99, 179, 237, 0.1);
+    --border-light: rgba(255, 255, 255, 0.05);
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background-color var(--transition-default), color var(--transition-default);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* ==============================
+   TOMBOL TOGGLE TEMA
+   ============================== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--card-bg);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px var(--shadow-medium);
+    z-index: 1000;
+    transition: all var(--transition-default);
+    overflow: hidden;
+}
+
+.theme-toggle:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px var(--shadow-medium);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+}
+
+.sun-moon {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.sun {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #FBBF24;
+    border-radius: 50%;
+    transition: transform var(--transition-default);
+}
+
+.moon {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #CBD5E0;
+    border-radius: 50%;
+    transform: translateX(100%);
+    transition: transform var(--transition-default);
+}
+
+.dark-mode .sun {
+    transform: translateX(-100%);
+}
+
+.dark-mode .moon {
+    transform: translateX(0);
+}
+
+/* Animasi mengambang untuk tombol tema */
+@keyframes float-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.theme-toggle {
+    animation: float-slow 8s ease-in-out infinite;
+}
+
+/* ==============================
+   TAMPILAN LAYAR
+   ============================== */
+.screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity var(--transition-default), transform var(--transition-default);
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==============================
+   MENU UTAMA
+   ============================== */
+.title-container {
+    text-align: center;
+    margin: 40px 0 60px;
+}
+
+.main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+}
+
+/* Animasi mengambang untuk judul */
+@keyframes float-medium {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+.floating-main {
+    animation: float-medium 6s ease-in-out infinite;
+}
+
+.floating-sub {
+    animation: float-medium 7s ease-in-out infinite;
+}
+
+/* Pemilihan Kelas */
+.class-selection {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.class-selection h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+}
+
+.class-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.class-btn {
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent-color), #4C6FFF);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-default);
+    box-shadow: 0 8px 20px rgba(49, 130, 206, 0.3);
+}
+
+.class-btn:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(49, 130, 206, 0.4);
+}
+
+.class-btn:active {
+    transform: translateY(-4px);
+}
+
+.class-number {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.class-roman {
+    font-size: 1.5rem;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+/* Tombol Fun Facts */
+.fun-facts-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #F59E0B, #D97706);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-default);
+    box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+}
+
+.fun-facts-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+}
+
+.fun-facts-btn:active {
+    transform: translateY(-2px);
+}
+
+.fun-facts-btn i {
+    margin-right: 10px;
+}
+
+/* ==============================
+   TAMPILAN PEMILIHAN ROMBEL
+   ============================== */
+.back-nav {
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    background: var(--card-bg);
+    border: none;
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    box-shadow: 0 4px 8px var(--shadow-light);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-btn:hover {
+    background: var(--accent-light);
+    color: var(--accent-color);
+    transform: translateX(-5px);
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.rombel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.rombel-btn {
+    padding: 20px 15px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 15px;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-default);
+    box-shadow: 0 4px 12px var(--shadow-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+}
+
+.rombel-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+    background: var(--accent-light);
+    color: var(--accent-color);
+}
+
+/* Animasi untuk tombol rombel */
+@keyframes slideInFromBottom {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rombel-btn {
+    animation: slideInFromBottom 0.5s ease-out forwards;
+    animation-delay: calc(var(--i) * 0.05s);
+    opacity: 0;
+}
+
+/* Animasi mengambang untuk tombol rombel */
+@keyframes float-very-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+.rombel-btn:hover {
+    animation: float-very-slow 4s ease-in-out infinite;
+}
+
+/* ==============================
+   TAMPILAN PEMILIHAN HARI
+   ============================== */
+.day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.day-btn {
+    padding: 25px 15px;
+    background: var(--card-bg);
+    border: none;
+    border-radius: 15px;
+    color: var(--text-primary);
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-default);
+    box-shadow: 0 4px 12px var(--shadow-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.day-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+    background: var(--accent-light);
+    color: var(--accent-color);
+}
+
+/* ==============================
+   TAMPILAN JADWAL
+   ============================== */
+.schedule-container {
+    background: var(--card-bg);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px var(--shadow-light);
+    margin-bottom: 40px;
+}
+
+.schedule-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    background: var(--accent-light);
+    padding: 20px;
+    border-bottom: 1px solid var(--border-light);
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.schedule-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.schedule-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 20px;
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color var(--transition-fast);
+}
+
+.schedule-item:hover {
+    background-color: var(--accent-light);
+}
+
+.schedule-item:last-child {
+    border-bottom: none;
+}
+
+.time-slot {
+    font-weight: 600;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+}
+
+.subject {
+    font-weight: 500;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+}
+
+/* ==============================
+   TAMPILAN FUN FACTS
+   ============================== */
+.facts-container {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 30px var(--shadow-light);
+    margin-bottom: 40px;
+}
+
+.fact-category {
+    margin-bottom: 30px;
+}
+
+.fact-category h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fact-category ul {
+    list-style-type: none;
+}
+
+.fact-item {
+    padding: 15px;
+    margin-bottom: 10px;
+    background: var(--accent-light);
+    border-radius: 10px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.fact-item strong {
+    color: var(--accent-color);
+}
+
+/* ==============================
+   RESPONSIF
+   ============================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .main-title {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .class-buttons {
+        gap: 15px;
+    }
+    
+    .class-btn {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .class-number {
+        font-size: 3rem;
+    }
+    
+    .class-roman {
+        font-size: 1.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .rombel-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .rombel-btn {
+        font-size: 1.1rem;
+        min-height: 80px;
+    }
+    
+    .day-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .day-btn {
+        padding: 20px 15px;
+    }
+    
+    .schedule-header, .schedule-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .theme-toggle {
+        width: 50px;
+        height: 50px;
+        top: 15px;
+        left: 15px;
+    }
+    
+    .sun-moon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .class-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .class-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .rombel-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .rombel-btn {
+        font-size: 1rem;
+        min-height: 70px;
+    }
+}
+
+/* ==============================
+   UTILITAS ANIMASI
+   ============================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn var(--transition-default);
+}
+
+/* Efek glassmorphism untuk beberapa elemen */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.dark-mode .glass-effect {
+    background: rgba(30, 41, 59, 0.8);
+  }
