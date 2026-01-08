@@ -1,4 +1,6 @@
-// Data Jadwal dari file jadwal.txt
+// ==========================================
+// DATA JADWAL (Contoh dari jadwal.txt)
+// ==========================================
 const scheduleData = {
     "7": {
         "1": {
@@ -65,196 +67,176 @@ const scheduleData = {
             ]
         },
         "2": {
-            "SENIN": [
-                { time: "07.00 - 08.10", subject: "Upacara Bendera" },
-                { time: "08.10 - 08.50", subject: "Mulok" },
-                { time: "08.50 - 09.30", subject: "Bahasa Indonesia" },
-                { time: "09.30 - 10.10", subject: "Bahasa Indonesia" },
-                { time: "10.10 - 10.50", subject: "Bahasa Indonesia" }
-            ],
-            "SELASA": [
-                { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
-                { time: "07.30 - 08.10", subject: "Bahasa Indonesia" },
-                { time: "08.10 - 08.50", subject: "Bahasa Indonesia" },
-                { time: "08.50 - 09.30", subject: "Matematika" },
-                { time: "09.30 - 10.10", subject: "Matematika" }
-            ]
-        },
-        "3": {}, "4": {}, "5": {}, "6": {}, "7": {}, "8": {}, "9": {}, "10": {}, "11": {}, "12": {}
+            // Data rombel 2 bisa dilanjutkan di sini sesuai jadwal.txt
+        }
     },
-    "8": {
-        "1": {
-            "SENIN": [
-                { time: "07.00 - 08.10", subject: "Upacara Bendera" },
-                { time: "08.10 - 08.50", subject: "IPA" },
-                { time: "08.50 - 09.30", subject: "IPA" },
-                { time: "09.30 - 10.10", subject: "PKN" },
-                { time: "10.10 - 10.50", subject: "PKN" }
-            ],
-            "SELASA": [
-                { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
-                { time: "07.30 - 08.10", subject: "IPS" },
-                { time: "08.10 - 08.50", subject: "IPS" },
-                { time: "08.50 - 09.30", subject: "IPS" },
-                { time: "09.30 - 10.10", subject: "TIK" }
-            ]
-        },
-        "2": {}, "3": {}, "4": {}, "5": {}, "6": {}, "7": {}, "8": {}, "9": {}, "10": {}, "11": {}, "12": {}, "13": {}, "14": {}
-    },
-    "9": {
-        "1": {
-            "SENIN": [
-                { time: "07.00 - 08.10", subject: "Upacara Bendera" },
-                { time: "08.10 - 08.50", subject: "Matematika" },
-                { time: "08.50 - 09.30", subject: "Matematika" },
-                { time: "09.30 - 10.10", subject: "TIK" },
-                { time: "10.10 - 10.50", subject: "TIK" }
-            ],
-            "SELASA": [
-                { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
-                { time: "07.30 - 08.10", subject: "Matematika" },
-                { time: "08.10 - 08.50", subject: "Matematika" },
-                { time: "08.50 - 09.30", subject: "PJOK" },
-                { time: "09.30 - 10.10", subject: "TIK" }
-            ]
-        },
-        "2": {}, "3": {}, "4": {}, "5": {}, "6": {}, "7": {}, "8": {}, "9": {}, "10": {}, "11": {}, "12": {}, "13": {}, "14": {}
-    }
+    "8": {},
+    "9": {}
 };
 
-const funFactsData = [
+// ==========================================
+// DATA FUN FACTS (Lengkap 5 Poin)
+// ==========================================
+const funFacts = [
     {
-        title: "JUMLAH GURU PER MATA PELAJARAN",
+        title: "Jumlah Guru per Mata Pelajaran",
         facts: [
-            "Pendidikan Agama: 9 guru", "PKn: 5 guru", "Bahasa Indonesia: 10 guru",
-            "Matematika: 8 guru", "Bahasa Inggris: 8 guru", "IPA: 7 guru",
-            "IPS: 6 guru", "PJOK: 7 guru", "Prakarya/Seni Budaya: 5 guru",
-            "TIK: 4 guru", "BK: 4 guru"
+            "Pendidikan Agama: 9 guru",
+            "PKn: 5 guru",
+            "Bahasa Indonesia: 10 guru",
+            "Matematika & Bahasa Inggris: 8 guru",
+            "IPA: 7 guru",
+            "IPS: 6 guru",
+            "PJOK: 7 guru",
+            "Prakarya/Seni Budaya: 5 guru",
+            "TIK & BK: 4 guru"
         ]
     },
     {
-        title: "PERBANDINGAN GENDER",
-        facts: ["Guru Perempuan: ~85% (55/65)", "Guru Laki-laki: ~15% (10/65)"]
+        title: "Perbandingan Gender",
+        facts: [
+            "Guru Perempuan: Sekitar 85% (55 dari 65)",
+            "Guru Laki-laki: Sekitar 15% (10 dari 65)"
+        ]
     },
     {
-        title: "GURU DENGAN JAM MENGAJAR TERBANYAK",
+        title: "Guru Multi-Mapel",
         facts: [
-            "Abdul Wahid (Agama): 36 JP", "Yohanes Kapahese (TIK): 36 JP",
-            "Nita A. Modali (TIK): 42 JP", "Christi Tumangkeng (TIK): 42 JP"
+            "Sartika Ambat, S.Pd.: Agama Kristen & PKn",
+            "Rahmi Astuti, S.Pd: B. Indonesia & B. Inggris",
+            "Venly Pande, S.Pd: PJOK & TIK",
+            "Rizki Wahyuni & Debi Bawiling: B. Indonesia & B. Inggris"
+        ]
+    },
+    {
+        title: "Beban Jam Mengajar Tertinggi",
+        facts: [
+            "Nita A. Modali, S.Kom (TIK): 42 JP",
+            "Christi Tumangkeng, S.Pd (TIK): 42 JP",
+            "Abdul Wahid, S.Pd.I (Agama): 36 JP",
+            "Yohanes Andrew K., S.Pd (TIK): 36 JP",
+            "Fakta: Guru TIK memiliki beban jam tertinggi karena mengajar banyak kelas."
+        ]
+    },
+    {
+        title: "Gelar Akademik Tertinggi (Magister)",
+        facts: [
+            "John Wuisan, M.Th (Magister Theologi)",
+            "Sicilia Ledy S Sambur, M.Pd (Magister Pendidikan)",
+            "Hesty M. Lontoh, S.Pd, M.Pd (Magister Pendidikan)",
+            "Marjeine Dalonto, M.Pd (Magister Pendidikan)"
         ]
     }
 ];
 
-// State
+// ==========================================
+// SELEKTOR DOM & STATE
+// ==========================================
+const themeToggle = document.getElementById('themeToggle');
+const body = document.body;
+const factsContainer = document.getElementById('factsContainer');
+const scheduleList = document.getElementById('scheduleList');
+
 let currentClass = null;
 let currentRombel = null;
-let currentDay = null;
 
-// DOM Elements
-const themeToggle = document.getElementById('themeToggle');
-const screens = document.querySelectorAll('.screen');
-
+// ==========================================
+// FUNGSI TEMA (LIGHT/DARK)
+// ==========================================
 function toggleTheme() {
-    const body = document.body;
-    const isDarkMode = body.classList.contains('dark-mode');
-    if (isDarkMode) {
-        body.classList.replace('dark-mode', 'light-mode');
-        localStorage.setItem('theme', 'light');
-    } else {
-        body.classList.replace('light-mode', 'dark-mode');
-        localStorage.setItem('theme', 'dark');
-    }
+    const isDark = body.classList.toggle('dark-mode');
+    body.classList.toggle('light-mode', !isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
+// ==========================================
+// NAVIGASI LAYAR
+// ==========================================
 function switchScreen(fromId, toId) {
     const fromScreen = document.getElementById(fromId);
     const toScreen = document.getElementById(toId);
     
-    fromScreen.style.opacity = '0';
-    fromScreen.style.transform = 'translateY(-20px)';
-    
+    fromScreen.classList.remove('active');
     setTimeout(() => {
-        fromScreen.classList.remove('active');
         toScreen.classList.add('active');
-        toScreen.style.opacity = '0';
-        toScreen.style.transform = 'translateY(20px)';
-        
-        setTimeout(() => {
-            toScreen.style.opacity = '1';
-            toScreen.style.transform = 'translateY(0)';
-        }, 50);
-    }, 400);
+        window.scrollTo(0, 0);
+    }, 300);
 }
 
-function showRombelSelection(selectedClass) {
-    currentClass = selectedClass;
-    document.getElementById('rombelTitle').textContent = `Kelas ${selectedClass} Berapa?`;
+// ==========================================
+// LOGIKA TAMPILAN JADWAL
+// ==========================================
+function showRombelSelection(classNum) {
+    currentClass = classNum;
+    document.getElementById('rombelTitle').innerText = `Kelas ${classNum} - Pilih Rombel`;
     
     const rombelGrid = document.getElementById('rombelGrid');
     rombelGrid.innerHTML = '';
     
-    let rombelCount = (selectedClass === '7') ? 12 : 14;
-    
-    for (let i = 1; i <= rombelCount; i++) {
-        const rombelBtn = document.createElement('button');
-        rombelBtn.className = 'rombel-btn';
-        rombelBtn.textContent = `Rombel ${i}`;
-        rombelBtn.style.setProperty('--i', i);
-        
-        rombelBtn.onclick = () => {
-            currentRombel = i.toString(); // Gunakan string agar cocok dengan key object
-            showDaySelection();
-        };
-        rombelGrid.appendChild(rombelBtn);
+    // Rombel 1-14 sesuai data sekolah
+    for (let i = 1; i <= 14; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'rombel-btn';
+        btn.innerText = `Rombel ${i}`;
+        btn.onclick = () => showDaySelection(i);
+        rombelGrid.appendChild(btn);
     }
+    
     switchScreen('mainMenu', 'rombelSelection');
 }
 
-function showDaySelection() {
-    document.getElementById('dayTitle').textContent = `Kelas ${currentClass} - Rombel ${currentRombel}`;
+function showDaySelection(rombelNum) {
+    currentRombel = rombelNum;
+    document.getElementById('dayTitle').innerText = `Kelas ${currentClass} - Rombel ${rombelNum}`;
     switchScreen('rombelSelection', 'daySelection');
 }
 
-// FUNGSI UTAMA YANG DIPERBAIKI
-function showSchedule(selectedDay) {
-    currentDay = selectedDay;
-    document.getElementById('scheduleTitle').textContent = `Jadwal Kelas ${currentClass} - Rombel ${currentRombel} (${selectedDay})`;
-    
-    const scheduleList = document.getElementById('scheduleList');
+function showSchedule(day) {
+    document.getElementById('scheduleTitle').innerText = `${day} - Rombel ${currentRombel}`;
     scheduleList.innerHTML = '';
-    
-    // Safety check: Pastikan urutan data ada
-    const classData = scheduleData[currentClass];
-    const rombelData = classData ? classData[currentRombel] : null;
-    const schedule = (rombelData && rombelData[selectedDay]) ? rombelData[selectedDay] : [];
-    
-    if (schedule.length > 0) {
-        schedule.forEach(item => {
+
+    const dayData = scheduleData[currentClass]?.[currentRombel]?.[day];
+
+    if (dayData && dayData.length > 0) {
+        dayData.forEach(item => {
             const div = document.createElement('div');
             div.className = 'schedule-item';
-            div.innerHTML = `<div class="time-slot">${item.time}</div><div class="subject">${item.subject}</div>`;
+            div.innerHTML = `
+                <div class="time">${item.time}</div>
+                <div class="subject">${item.subject}</div>
+            `;
             scheduleList.appendChild(div);
         });
     } else {
-        scheduleList.innerHTML = `<div class="schedule-item"><div class="subject" style="grid-column: 1/-1; text-align:center; padding:40px;">Jadwal belum tersedia untuk pilihan ini.</div></div>`;
+        scheduleList.innerHTML = `
+            <div class="schedule-item">
+                <div class="subject" style="grid-column: span 2; text-align: center;">
+                    Data jadwal belum diinput untuk Rombel ini.
+                </div>
+            </div>`;
     }
-    
+
     switchScreen('daySelection', 'scheduleDisplay');
 }
 
+// ==========================================
+// LOGIKA TAMPILAN FUN FACTS
+// ==========================================
 function showFunFacts() {
-    const container = document.querySelector('.facts-container');
-    container.innerHTML = '';
-    funFactsData.forEach(cat => {
+    factsContainer.innerHTML = '';
+    funFacts.forEach(cat => {
         const div = document.createElement('div');
         div.className = 'fact-category';
         let items = cat.facts.map(f => `<li class="fact-item">${f}</li>`).join('');
-        div.innerHTML = `<h3><i class="fas fa-chart-bar"></i> ${cat.title}</h3><ul>${items}</ul>`;
-        container.appendChild(div);
+        div.innerHTML = `<h3><i class="fas fa-star"></i> ${cat.title}</h3><ul>${items}</ul>`;
+        factsContainer.appendChild(div);
     });
     switchScreen('mainMenu', 'funFactsDisplay');
 }
 
+// ==========================================
+// INISIALISASI
+// ==========================================
 function initEventListeners() {
     themeToggle.onclick = toggleTheme;
     
@@ -268,6 +250,7 @@ function initEventListeners() {
         btn.onclick = () => showSchedule(btn.dataset.day);
     });
     
+    // Tombol Kembali
     document.getElementById('backToMain').onclick = () => switchScreen('rombelSelection', 'mainMenu');
     document.getElementById('backToRombel').onclick = () => switchScreen('daySelection', 'rombelSelection');
     document.getElementById('backToDay').onclick = () => switchScreen('scheduleDisplay', 'daySelection');
@@ -275,9 +258,13 @@ function initEventListeners() {
 }
 
 function initApp() {
+    // Memuat tema yang disimpan
     const savedTheme = localStorage.getItem('theme') || 'light';
-    document.body.classList.add(savedTheme + '-mode');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        body.classList.remove('light-mode');
+    }
     initEventListeners();
 }
 
-document.addEventListener('DOMContentLoaded', initApp);
+window.onload = initApp;
