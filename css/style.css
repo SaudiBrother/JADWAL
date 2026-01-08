@@ -1,34 +1,39 @@
 /* ==============================
    VARIABLES & RESET
    ============================== */
-:root {
+: root {
     /* Light Mode Colors (default) */
-    --bg-primary: #F8F9FC;
-    --card-bg: #FFFFFF;
-    --text-primary: #1A202C;
-    --text-secondary: rgba(26, 32, 44, 0.6);
-    --accent-color: #3182CE;
-    --accent-light: #EBF8FF;
-    --border-light: rgba(0, 0, 0, 0.05);
-    --shadow-light: rgba(0, 0, 0, 0.04);
-    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --bg-primary: #f0f2f5;
+    --bg-secondary: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --accent-color: #667eea;
+    --accent-light: #f0f3ff;
+    --border-color: #e0e0e0;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
     
     /* Animation */
-    --transition-default: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.dark-mode {
+. dark-mode {
     /* Dark Mode Colors */
-    --bg-primary: #0F172A;
-    --card-bg: #1E293B;
-    --text-primary: #F7FAFC;
-    --text-secondary: rgba(247, 250, 252, 0.6);
-    --accent-color: #63B3ED;
-    --accent-light: rgba(99, 179, 237, 0.1);
-    --border-light: rgba(255, 255, 255, 0.05);
-    --shadow-light: rgba(0, 0, 0, 0.2);
-    --shadow-medium: rgba(0, 0, 0, 0.3);
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --card-bg: #21262d;
+    --text-primary: #e6edf3;
+    --text-secondary:  #8b949e;
+    --accent-color: #58a6ff;
+    --accent-light: rgba(88, 166, 255, 0.1);
+    --border-color: #30363d;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -37,19 +42,23 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    transition: background-color var(--transition-default), color var(--transition-default);
+    transition: background-color var(--transition-normal), color var(--transition-normal);
     min-height: 100vh;
     overflow-x: hidden;
 }
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin:  0 auto;
     padding: 20px;
     min-height: 100vh;
     position: relative;
@@ -61,88 +70,77 @@ body {
 .theme-toggle {
     position: fixed;
     top: 20px;
-    left: 20px;
-    width: 60px;
-    height: 60px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
     border-radius: 50%;
     background: var(--card-bg);
-    border: none;
+    border: 2px solid var(--border-color);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px var(--shadow-medium);
+    box-shadow: var(--shadow-md);
     z-index: 1000;
-    transition: all var(--transition-default);
+    transition: all var(--transition-fast);
     overflow: hidden;
 }
 
-.theme-toggle:hover {
+.theme-toggle: hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 16px var(--shadow-medium);
+    box-shadow: var(--shadow-lg);
 }
 
 .theme-toggle:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
 }
 
 .sun-moon {
     position: relative;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .sun {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #FBBF24;
-    border-radius: 50%;
-    transition: transform var(--transition-default);
+    font-size: 18px;
+    color: #fbbf24;
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+    opacity: 1;
+    transform: rotate(0deg);
 }
 
 .moon {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #CBD5E0;
-    border-radius: 50%;
-    transform: translateX(100%);
-    transition: transform var(--transition-default);
+    font-size: 18px;
+    color: #60a5fa;
+    transition:  transform var(--transition-normal), opacity var(--transition-normal);
+    opacity: 0;
+    transform: rotate(180deg);
 }
 
 .dark-mode .sun {
-    transform: translateX(-100%);
+    opacity: 0;
+    transform:  rotate(180deg);
 }
 
 .dark-mode .moon {
-    transform: translateX(0);
-}
-
-/* Animasi mengambang untuk tombol tema */
-@keyframes float-slow {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-8px);
-    }
-}
-
-.theme-toggle {
-    animation: float-slow 8s ease-in-out infinite;
+    opacity: 1;
+    transform: rotate(0deg);
 }
 
 /* ==============================
    TAMPILAN LAYAR
    ============================== */
-.screen {
+. screen {
     display: none;
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity var(--transition-default), transform var(--transition-default);
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .screen.active {
@@ -151,56 +149,82 @@ body {
     transform: translateY(0);
 }
 
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform:  translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ==============================
    MENU UTAMA
    ============================== */
 .title-container {
     text-align: center;
-    margin: 40px 0 60px;
+    margin:  40px 0 50px;
+    padding: 20px;
 }
 
 .main-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 15px;
+    font-size: 2.8rem;
+    font-weight:  800;
+    margin-bottom: 10px;
     color: var(--text-primary);
-    letter-spacing: -0.5px;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    animation: slideDown 0.8s ease-out;
 }
 
-.subtitle {
-    font-size: 1.2rem;
-    font-weight: 400;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
+.main-title i {
+    font-size: 2. 5rem;
 }
 
-/* Animasi mengambang untuk judul */
-@keyframes float-medium {
-    0%, 100% {
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
         transform: translateY(0);
     }
-    50% {
-        transform: translateY(-5px);
-    }
 }
 
-.floating-main {
-    animation: float-medium 6s ease-in-out infinite;
+.subtitle-main {
+    font-size:  1.5rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-bottom: 8px;
 }
 
-.floating-sub {
-    animation: float-medium 7s ease-in-out infinite;
+.current-date {
+    font-size:  1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
 }
 
 /* Pemilihan Kelas */
 .class-selection {
     text-align: center;
-    margin-bottom: 60px;
+    margin: 60px 0;
+    padding:  30px 20px;
+    background: var(--accent-light);
+    border-radius: 16px;
+    border: 2px solid transparent;
+    transition: all var(--transition-normal);
 }
 
-.class-selection h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
+.selection-title {
+    font-size: 1.4rem;
+    font-weight:  700;
     margin-bottom: 30px;
     color: var(--text-primary);
 }
@@ -208,30 +232,48 @@ body {
 .class-buttons {
     display: flex;
     justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    gap: 25px;
+    flex-wrap:  wrap;
+    margin-bottom: 30px;
 }
 
 .class-btn {
-    width: 180px;
-    height: 180px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, var(--accent-color), #4C6FFF);
+    width: 160px;
+    height: 160px;
+    border-radius:  16px;
+    background: var(--color, linear-gradient(135deg, #667eea 0%, #764ba2 100%));
     border: none;
     color: white;
-    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: all var(--transition-default);
-    box-shadow: 0 8px 20px rgba(49, 130, 206, 0.3);
+    gap: 12px;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
 }
 
-.class-btn:hover {
+.class-btn:: before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left:  -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left var(--transition-normal);
+}
+
+.class-btn:hover::before {
+    left: 100%;
+}
+
+. class-btn: hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(49, 130, 206, 0.4);
+    box-shadow: var(--shadow-lg);
 }
 
 .class-btn:active {
@@ -239,44 +281,46 @@ body {
 }
 
 .class-number {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 2. 5rem;
+    font-weight: 800;
     line-height: 1;
 }
 
-.class-roman {
-    font-size: 1.5rem;
-    font-weight: 500;
-    opacity: 0.9;
+.class-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    opacity: 0.95;
 }
 
 /* Tombol Fun Facts */
 .fun-facts-btn {
-    display: block;
-    margin: 0 auto;
+    display: inline-block;
     padding: 16px 40px;
-    background: linear-gradient(135deg, #F59E0B, #D97706);
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
     border: none;
     border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size:  1.05rem;
+    font-weight:  700;
     cursor: pointer;
-    transition: all var(--transition-default);
-    box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-md);
+    display: block;
+    margin: 0 auto;
+    gap: 10px;
 }
 
 .fun-facts-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(245, 158, 11, 0.4);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
 }
 
 .fun-facts-btn:active {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
 }
 
-.fun-facts-btn i {
-    margin-right: 10px;
+. fun-facts-btn i {
+    margin-right: 8px;
 }
 
 /* ==============================
@@ -288,69 +332,91 @@ body {
 
 .back-btn {
     background: var(--card-bg);
-    border: none;
+    border: 2px solid var(--border-color);
     color: var(--text-primary);
     padding: 10px 20px;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 500;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all var(--transition-fast);
-    box-shadow: 0 4px 8px var(--shadow-light);
-    display: flex;
+    box-shadow: var(--shadow-sm);
+    display: inline-flex;
     align-items: center;
     gap: 8px;
 }
 
 .back-btn:hover {
-    background: var(--accent-light);
+    background:  var(--accent-light);
     color: var(--accent-color);
-    transform: translateX(-5px);
+    border-color: var(--accent-color);
+    transform: translateX(-4px);
 }
 
 .section-title {
     font-size: 2rem;
-    font-weight: 700;
+    font-weight:  800;
     margin-bottom: 40px;
     color: var(--text-primary);
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 }
 
-.rombel-grid {
+. rombel-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom:  20px;
 }
 
 .rombel-btn {
     padding: 20px 15px;
     background: var(--card-bg);
-    border: none;
-    border-radius: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
     color: var(--text-primary);
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1. 1rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: all var(--transition-default);
-    box-shadow: 0 4px 12px var(--shadow-light);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rombel-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background:  var(--accent-light);
+    transition: left var(--transition-normal);
+}
+
+.rombel-btn:hover::before {
+    left: 100%;
 }
 
 .rombel-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px var(--shadow-medium);
-    background: var(--accent-light);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
     color: var(--accent-color);
 }
 
-/* Animasi untuk tombol rombel */
 @keyframes slideInFromBottom {
     0% {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;
@@ -359,23 +425,8 @@ body {
 }
 
 .rombel-btn {
-    animation: slideInFromBottom 0.5s ease-out forwards;
+    animation: slideInFromBottom 0.4s ease-out forwards;
     animation-delay: calc(var(--i) * 0.05s);
-    opacity: 0;
-}
-
-/* Animasi mengambang untuk tombol rombel */
-@keyframes float-very-slow {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-3px);
-    }
-}
-
-.rombel-btn:hover {
-    animation: float-very-slow 4s ease-in-out infinite;
 }
 
 /* ==============================
@@ -383,29 +434,37 @@ body {
    ============================== */
 .day-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 20px;
 }
 
 .day-btn {
-    padding: 25px 15px;
+    padding: 25px 20px;
     background: var(--card-bg);
-    border: none;
-    border-radius: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
     color: var(--text-primary);
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight:  700;
     cursor: pointer;
-    transition: all var(--transition-default);
-    box-shadow: 0 4px 12px var(--shadow-light);
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
+}
+
+.day-btn i {
+    font-size: 1.8rem;
+    color: var(--accent-color);
 }
 
 .day-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px var(--shadow-medium);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
     background: var(--accent-light);
     color: var(--accent-color);
 }
@@ -413,39 +472,67 @@ body {
 /* ==============================
    TAMPILAN JADWAL
    ============================== */
-.schedule-container {
+. schedule-container {
     background: var(--card-bg);
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 30px var(--shadow-light);
+    box-shadow: var(--shadow-md);
     margin-bottom: 40px;
+    border: 1px solid var(--border-color);
 }
 
 .schedule-header {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    background: var(--accent-light);
+    grid-template-columns: 120px 1fr;
+    background: linear-gradient(135deg, var(--accent-color), #764ba2);
     padding: 20px;
-    border-bottom: 1px solid var(--border-light);
-    font-weight: 600;
-    color: var(--accent-color);
+    font-weight: 700;
+    color:  white;
+    gap: 20px;
+}
+
+.schedule-header > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .schedule-list {
-    max-height: 500px;
-    overflow-y: auto;
+    max-height: 600px;
+    overflow-y:  auto;
+}
+
+.schedule-list: :-webkit-scrollbar {
+    width: 8px;
+}
+
+.schedule-list::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.schedule-list::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+.schedule-list::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
 }
 
 .schedule-item {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 120px 1fr;
     padding: 20px;
-    border-bottom: 1px solid var(--border-light);
-    transition: background-color var(--transition-fast);
+    border-bottom:  1px solid var(--border-color);
+    transition: all var(--transition-fast);
+    gap: 20px;
+    align-items: center;
 }
 
 .schedule-item:hover {
     background-color: var(--accent-light);
+    border-left: 4px solid var(--accent-color);
+    padding-left: 16px;
 }
 
 .schedule-item:last-child {
@@ -453,176 +540,321 @@ body {
 }
 
 .time-slot {
-    font-weight: 600;
+    font-weight: 700;
     color: var(--accent-color);
     display: flex;
     align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
 }
 
 .subject {
-    font-weight: 500;
-    color: var(--text-primary);
+    font-weight: 600;
+    color:  var(--text-primary);
     display: flex;
     align-items: center;
+    gap: 8px;
 }
 
 /* ==============================
    TAMPILAN FUN FACTS
    ============================== */
 .facts-container {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 30px var(--shadow-light);
+    display: grid;
+    gap: 30px;
     margin-bottom: 40px;
 }
 
 .fact-category {
-    margin-bottom: 30px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid var(--border-color);
+    transition: all var(--transition-fast);
+}
+
+.fact-category:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 .fact-category h3 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 20px;
     color: var(--accent-color);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    padding-bottom: 15px;
+    border-bottom:  2px solid var(--accent-light);
+}
+
+.fact-category h3 i {
+    font-size: 1.5rem;
 }
 
 .fact-category ul {
-    list-style-type: none;
+    list-style: none;
 }
 
 .fact-item {
     padding: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     background: var(--accent-light);
     border-radius: 10px;
-    border-left: 4px solid var(--accent-color);
+    border-left:  4px solid var(--accent-color);
+    transition: all var(--transition-fast);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.fact-item:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateX(4px);
+}
+
+.fact-item: last-child {
+    margin-bottom: 0;
 }
 
 .fact-item strong {
     color: var(--accent-color);
+    font-weight: 700;
+}
+
+. fact-item: hover strong {
+    color: white;
 }
 
 /* ==============================
-   RESPONSIF
+   RESPONSIF MOBILE
    ============================== */
 @media (max-width: 768px) {
     .container {
         padding: 15px;
     }
-    
-    .main-title {
-        font-size: 1.8rem;
-    }
-    
-    .subtitle {
-        font-size: 1rem;
-    }
-    
-    .class-buttons {
-        gap: 15px;
-    }
-    
-    .class-btn {
-        width: 140px;
-        height: 140px;
-    }
-    
-    .class-number {
-        font-size: 3rem;
-    }
-    
-    .class-roman {
-        font-size: 1.2rem;
-    }
-    
-    .section-title {
-        font-size: 1.6rem;
-    }
-    
-    .rombel-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
-    
-    .rombel-btn {
-        font-size: 1.1rem;
-        min-height: 80px;
-    }
-    
-    .day-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .day-btn {
-        padding: 20px 15px;
-    }
-    
-    .schedule-header, .schedule-item {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
+
     .theme-toggle {
         width: 50px;
         height: 50px;
         top: 15px;
-        left: 15px;
+        right: 15px;
     }
-    
-    .sun-moon {
-        width: 25px;
-        height: 25px;
-    }
-}
 
-@media (max-width: 480px) {
-    .class-btn {
-        width: 100%;
-        max-width: 200px;
+    . main-title {
+        font-size: 2rem;
     }
-    
-    .class-buttons {
-        flex-direction: column;
-        align-items: center;
+
+    .main-title i {
+        font-size: 1.8rem;
     }
-    
-    .rombel-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+
+    . subtitle-main {
+        font-size: 1.2rem;
     }
-    
-    .rombel-btn {
+
+    . current-date {
+        font-size: 0.9rem;
+    }
+
+    .class-selection {
+        padding: 20px 15px;
+        margin:  40px 0;
+    }
+
+    .selection-title {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+
+    . class-buttons {
+        gap: 15px;
+    }
+
+    . class-btn {
+        width: 140px;
+        height: 140px;
+    }
+
+    .class-number {
+        font-size: 2rem;
+    }
+
+    . class-label {
+        font-size: 0.85rem;
+    }
+
+    . fun-facts-btn {
+        font-size: 0.95rem;
+        padding: 14px 32px;
+    }
+
+    . section-title {
+        font-size: 1.6rem;
+    }
+
+    . rombel-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+    }
+
+    . rombel-btn {
         font-size: 1rem;
-        min-height: 70px;
+        min-height: 90px;
+    }
+
+    . day-grid {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 15px;
+    }
+
+    . day-btn {
+        padding: 20px 15px;
+        font-size: 0.95rem;
+    }
+
+    .day-btn i {
+        font-size:  1.5rem;
+    }
+
+    . schedule-header {
+        grid-template-columns: 100px 1fr;
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+
+    .schedule-item {
+        grid-template-columns: 100px 1fr;
+        padding:  15px;
+        gap: 15px;
+    }
+
+    .time-slot {
+        font-size: 0.85rem;
+    }
+
+    . fact-category {
+        padding: 18px;
+    }
+
+    .fact-category h3 {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    . fact-item {
+        padding: 12px;
+        font-size: 0.95rem;
     }
 }
 
 /* ==============================
-   UTILITAS ANIMASI
+   RESPONSIF EXTRA SMALL
    ============================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
+@media (max-width: 480px) {
+    .title-container {
+        margin:  25px 0 35px;
+        padding: 15px;
     }
-    to {
-        opacity: 1;
+
+    . main-title {
+        font-size: 1.6rem;
+        gap: 10px;
+    }
+
+    .main-title i {
+        font-size: 1.4rem;
+    }
+
+    . subtitle-main {
+        font-size: 1rem;
+    }
+
+    .class-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    . class-btn {
+        width:  100%;
+        max-width: 160px;
+    }
+
+    . rombel-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .day-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-header {
+        grid-template-columns: 80px 1fr;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    . schedule-item {
+        grid-template-columns: 80px 1fr;
+        padding: 12px;
+        gap: 10px;
+    }
+
+    . back-btn {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+
+    .fact-category {
+        padding: 15px;
+    }
+
+    .fact-item {
+        padding: 10px;
+        font-size: 0.9rem;
     }
 }
 
-.fade-in {
-    animation: fadeIn var(--transition-default);
+/* ==============================
+   RESPONSIF TABLET
+   ============================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .class-buttons {
+        gap: 20px;
+    }
+
+    .class-btn {
+        width: 150px;
+        height: 150px;
+    }
+
+    . rombel-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .day-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-/* Efek glassmorphism untuk beberapa elemen */
-.glass-effect {
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-light);
-}
+/* ==============================
+   PRINT STYLE
+   ============================== */
+@media print {
+    .theme-toggle,
+    .back-nav,
+    .class-selection,
+    .fun-facts-btn {
+        display: none;
+    }
 
-.dark-mode .glass-effect {
-    background: rgba(30, 41, 59, 0.8);
-  }
+    .schedule-container {
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+   }
