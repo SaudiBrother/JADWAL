@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal Pelajaran SMP Negeri 2 Bitung</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <!-- Tombol Toggle Tema -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">
+        <div class="sun-moon">
+            <div class="sun"></div>
+            <div class="moon"></div>
+        </div>
+    </button>
+
+    <!-- Kontainer Utama untuk semua tampilan -->
+    <div class="container" id="mainContainer">
+        <!-- Tampilan Menu Utama -->
+        <div class="screen active" id="mainMenu">
+            <div class="title-container">
+                <h1 class="main-title floating-main">Jadwal Pelajaran SMP NEGERI 2 BITUNG</h1>
+                <h2 class="subtitle floating-sub">2026, Kamis, 8 Januari</h2>
+            </div>
+            
+            <div class="class-selection">
+                <h3>Pilih Kelas</h3>
+                <div class="class-buttons">
+                    <button class="class-btn" data-class="7">
+                        <span class="class-number">7</span>
+                        <span class="class-roman">(VII)</span>
+                    </button>
+                    <button class="class-btn" data-class="8">
+                        <span class="class-number">8</span>
+                        <span class="class-roman">(VIII)</span>
+                    </button>
+                    <button class="class-btn" data-class="9">
+                        <span class="class-number">9</span>
+                        <span class="class-roman">(IX)</span>
+                    </button>
+                </div>
+            </div>
+            
+            <button class="fun-facts-btn" id="funFactsBtn">
+                <i class="fas fa-lightbulb"></i> Fun Facts ❗️
+            </button>
+        </div>
+        
+        <!-- Tampilan Pemilihan Rombel -->
+        <div class="screen" id="rombelSelection">
+            <div class="back-nav">
+                <button class="back-btn" id="backToMain">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+            <h1 class="section-title" id="rombelTitle"></h1>
+            <div class="rombel-grid" id="rombelGrid">
+                <!-- Rombel akan dimasukkan melalui JavaScript -->
+            </div>
+        </div>
+        
+        <!-- Tampilan Pemilihan Hari -->
+        <div class="screen" id="daySelection">
+            <div class="back-nav">
+                <button class="back-btn" id="backToRombel">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+            <h1 class="section-title" id="dayTitle"></h1>
+            <div class="day-grid">
+                <button class="day-btn" data-day="SENIN">Senin</button>
+                <button class="day-btn" data-day="SELASA">Selasa</button>
+                <button class="day-btn" data-day="RABU">Rabu</button>
+                <button class="day-btn" data-day="KAMIS">Kamis</button>
+                <button class="day-btn" data-day="JUMAT">Jumat</button>
+            </div>
+        </div>
+        
+        <!-- Tampilan Jadwal -->
+        <div class="screen" id="scheduleDisplay">
+            <div class="back-nav">
+                <button class="back-btn" id="backToDay">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+            <h1 class="section-title" id="scheduleTitle"></h1>
+            <div class="schedule-container">
+                <div class="schedule-header">
+                    <div class="header-time">Waktu</div>
+                    <div class="header-subject">Mata Pelajaran</div>
+                </div>
+                <div class="schedule-list" id="scheduleList">
+                    <!-- Jadwal akan dimasukkan melalui JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tampilan Fun Facts -->
+        <div class="screen" id="funFactsDisplay">
+            <div class="back-nav">
+                <button class="back-btn" id="backToMainFromFacts">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </button>
+            </div>
+            <h1 class="section-title">Fun Facts ❗️</h1>
+            <div class="facts-container">
+                <!-- Fakta akan dimasukkan melalui JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+              </html>
