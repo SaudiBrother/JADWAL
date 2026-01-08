@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="light-mode">
@@ -24,30 +24,33 @@
         <!-- Tampilan Menu Utama -->
         <div class="screen active" id="mainMenu">
             <div class="title-container">
-                <h1 class="main-title floating-main">Jadwal Pelajaran SMP NEGERI 2 BITUNG</h1>
-                <h2 class="subtitle floating-sub">2026, Kamis, 8 Januari</h2>
+                <h1 class="main-title floating-main">
+                    <i class="fas fa-calendar-alt"></i> Jadwal Pelajaran
+                </h1>
+                <h2 class="subtitle-main">SMP Negeri 2 Bitung</h2>
+                <h3 class="current-date" id="currentDate">2026, Kamis, 8 Januari</h3>
             </div>
             
             <div class="class-selection">
-                <h3>Pilih Kelas</h3>
+                <h3 class="selection-title">Pilih Kelas</h3>
                 <div class="class-buttons">
-                    <button class="class-btn" data-class="7">
-                        <span class="class-number">7</span>
-                        <span class="class-roman">(VII)</span>
+                    <button class="class-btn" data-class="7" style="--color: linear-gradient(135deg, #667eea 0%, #764ba2 100%)">
+                        <span class="class-number">VII</span>
+                        <span class="class-label">Kelas 7</span>
                     </button>
-                    <button class="class-btn" data-class="8">
-                        <span class="class-number">8</span>
-                        <span class="class-roman">(VIII)</span>
+                    <button class="class-btn" data-class="8" style="--color:  linear-gradient(135deg, #f093fb 0%, #f5576c 100%)">
+                        <span class="class-number">VIII</span>
+                        <span class="class-label">Kelas 8</span>
                     </button>
-                    <button class="class-btn" data-class="9">
-                        <span class="class-number">9</span>
-                        <span class="class-roman">(IX)</span>
+                    <button class="class-btn" data-class="9" style="--color: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)">
+                        <span class="class-number">IX</span>
+                        <span class="class-label">Kelas 9</span>
                     </button>
                 </div>
             </div>
             
             <button class="fun-facts-btn" id="funFactsBtn">
-                <i class="fas fa-lightbulb"></i> Fun Facts ❗️
+                <i class="fas fa-lightbulb"></i> Fun Facts Sekolah
             </button>
         </div>
         
@@ -73,11 +76,21 @@
             </div>
             <h1 class="section-title" id="dayTitle"></h1>
             <div class="day-grid">
-                <button class="day-btn" data-day="SENIN">Senin</button>
-                <button class="day-btn" data-day="SELASA">Selasa</button>
-                <button class="day-btn" data-day="RABU">Rabu</button>
-                <button class="day-btn" data-day="KAMIS">Kamis</button>
-                <button class="day-btn" data-day="JUMAT">Jumat</button>
+                <button class="day-btn" data-day="SENIN">
+                    <i class="fas fa-sun"></i> Senin
+                </button>
+                <button class="day-btn" data-day="SELASA">
+                    <i class="fas fa-cloud"></i> Selasa
+                </button>
+                <button class="day-btn" data-day="RABU">
+                    <i class="fas fa-cloud-sun"></i> Rabu
+                </button>
+                <button class="day-btn" data-day="KAMIS">
+                    <i class="fas fa-cloud-rain"></i> Kamis
+                </button>
+                <button class="day-btn" data-day="JUMAT">
+                    <i class="fas fa-star"></i> Jumat
+                </button>
             </div>
         </div>
         
@@ -91,8 +104,8 @@
             <h1 class="section-title" id="scheduleTitle"></h1>
             <div class="schedule-container">
                 <div class="schedule-header">
-                    <div class="header-time">Waktu</div>
-                    <div class="header-subject">Mata Pelajaran</div>
+                    <div class="header-time"><i class="fas fa-clock"></i> Waktu</div>
+                    <div class="header-subject"><i class="fas fa-book"></i> Mata Pelajaran</div>
                 </div>
                 <div class="schedule-list" id="scheduleList">
                     <!-- Jadwal akan dimasukkan melalui JavaScript -->
@@ -107,8 +120,10 @@
                     <i class="fas fa-arrow-left"></i> Kembali
                 </button>
             </div>
-            <h1 class="section-title">Fun Facts ❗️</h1>
-            <div class="facts-container">
+            <h1 class="section-title">
+                <i class="fas fa-lightbulb"></i> Fun Facts Sekolah
+            </h1>
+            <div class="facts-container" id="factsContainer">
                 <!-- Fakta akan dimasukkan melalui JavaScript -->
             </div>
         </div>
@@ -116,4 +131,4 @@
 
     <script src="js/script.js"></script>
 </body>
-              </html>
+                    </html>
