@@ -1,7 +1,7 @@
 /* ==============================
    VARIABLES & RESET
    ============================== */
-: root {
+:root {
     /* Light Mode Colors (default) */
     --bg-primary: #f0f2f5;
     --bg-secondary: #ffffff;
@@ -21,7 +21,7 @@
     --transition-slow: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-. dark-mode {
+.dark-mode {
     /* Dark Mode Colors */
     --bg-primary: #0d1117;
     --bg-secondary: #161b22;
