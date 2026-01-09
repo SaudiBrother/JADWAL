@@ -1,5 +1,3 @@
-script.js:
-
 const scheduleData = {
     "7": {
         "1": {
@@ -2645,3 +2643,4 @@ function initApp() {
 
 
 window.onload = initApp;
+
