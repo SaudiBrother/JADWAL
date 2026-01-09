@@ -2643,4 +2643,5 @@ function initApp() {
     initEventListeners();
 }
 
+
 window.onload = initApp;
