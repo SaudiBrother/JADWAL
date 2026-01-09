@@ -5305,4 +5305,5 @@ if (tombolInput) {
 
 
 // Pastikan aplikasi berjalan setelah HTML selesai dimuat
+
 document.addEventListener('DOMContentLoaded', initApp);
