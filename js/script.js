@@ -5136,7 +5136,15 @@ function showSchedule(day) {
 
 
 
-    const dayData = scheduleData[currentClass]?.[currentRombel]?.[day];
+    let dayData = null;
+
+if (
+    scheduleData[currentClass] &&
+    scheduleData[currentClass][currentRombel] &&
+    scheduleData[currentClass][currentRombel][day]
+) {
+    dayData = scheduleData[currentClass][currentRombel][day];
+}
 
 
 
