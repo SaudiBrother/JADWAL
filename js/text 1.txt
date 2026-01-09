@@ -1,5 +1,3 @@
-Apa codenya sudah benar begini?:
-
 const scheduleData = {
     "7": {
         "1": {
@@ -2646,5 +2644,6 @@ function initApp() {
     }
     initEventListeners();
 }
+
 
 window.onload = initApp;
