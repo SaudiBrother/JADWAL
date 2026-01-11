@@ -550,3 +550,4 @@ function init() {
 
 // Jalankan aplikasi ketika DOM sudah dimuat
 document.addEventListener('DOMContentLoaded', init);
+
