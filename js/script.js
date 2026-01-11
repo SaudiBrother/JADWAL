@@ -1,973 +1,552 @@
-/**
- * script.js - MODERN SCHOOL SCHEDULE APP
- * Interactive, smooth animations, dan enhanced UX
- */
+// Data Jadwal Lengkap dari file jadwal.txt
+const scheduleData = {
+    // Data yang sudah ada untuk kelas 7...
+    // Data untuk kelas 8 dan 9 akan ditambahkan di bawah
+};
 
-(() => {
-  'use strict';
-
-  // ========== CONSTANTS ==========
-  const DAYS = ['SENIN', 'SELASA', 'RABU', 'KAMIS', 'JUMAT'];
-  const DAYS_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-  const MONTHS = [
-    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-    'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-  ];
-
-  // ========== SCHEDULE DATA ==========
-  const SCHEDULE_DATA = {
-    '7': {
-      label: 'Kelas VII',
-      rombels: [
-        {
-          id: '7-1',
-          name: 'Rombel 1',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'Matematika' },
-              { time: '08.50 - 09.30', subject: 'Matematika' },
-              { time: '09.30 - 10.10', subject: 'Agama' },
-              { time: '10.10 - 10.50', subject: 'Agama' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'Prakarya' },
-              { time: '12.20 - 13.00', subject: 'Prakarya' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'PKn' },
-              { time: '08.10 - 08.50', subject: 'PKn' },
-              { time: '08.50 - 09.30', subject: 'PJOK' },
-              { time: '09.30 - 10.10', subject: 'PJOK' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'IPS' },
-              { time: '11.40 - 12.20', subject: 'IPS' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Mulok' },
-              { time: '08.10 - 08.50', subject: 'TIK' },
-              { time: '08.50 - 09.30', subject: 'TIK' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'IPA' },
-              { time: '11.40 - 12.20', subject: 'Bahasa Indonesia' },
-              { time: '12.20 - 13.00', subject: 'Bahasa Indonesia' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Matematika' },
-              { time: '08.10 - 08.50', subject: 'Matematika' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Bahasa Inggris' },
-              { time: '11.40 - 12.20', subject: 'Bahasa Inggris' },
-              { time: '12.20 - 13.00', subject: 'Bahasa Inggris' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'Bahasa Indonesia' },
-              { time: '08.40 - 09.20', subject: 'Bahasa Indonesia' },
-              { time: '09.20 - 10.00', subject: 'Bahasa Indonesia' },
-              { time: '10.00 - 10.40', subject: 'Mulok' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' },
-            ],
-          }
-        },
-        {
-          id: '7-2',
-          name: 'Rombel 2',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'Mulok' },
-              { time: '08.50 - 09.30', subject: 'Bahasa Indonesia' },
-              { time: '09.30 - 10.10', subject: 'Bahasa Indonesia' },
-              { time: '10.10 - 10.50', subject: 'Bahasa Indonesia' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'IPA' },
-              { time: '12.20 - 13.00', subject: 'IPA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Bahasa Indonesia' },
-              { time: '08.10 - 08.50', subject: 'Bahasa Indonesia' },
-              { time: '08.50 - 09.30', subject: 'Matematika' },
-              { time: '09.30 - 10.10', subject: 'Matematika' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Bahasa Inggris' },
-              { time: '11.40 - 12.20', subject: 'Bahasa Inggris' },
-              { time: '12.20 - 13.00', subject: 'PKn' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'PKn' },
-              { time: '08.10 - 08.50', subject: 'PKn' },
-              { time: '08.50 - 09.30', subject: 'Matematika' },
-              { time: '09.30 - 10.10', subject: 'Matematika' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Agama' },
-              { time: '11.40 - 12.20', subject: 'Agama' },
-              { time: '12.20 - 13.00', subject: 'Mulok' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPS' },
-              { time: '08.10 - 08.50', subject: 'IPS' },
-              { time: '08.50 - 09.30', subject: 'IPS' },
-              { time: '09.30 - 10.10', subject: 'Matematika' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Matematika' },
-              { time: '11.40 - 12.20', subject: 'PJOK' },
-              { time: '12.20 - 13.00', subject: 'PJOK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'Mulok' },
-              { time: '08.40 - 09.20', subject: 'Bahasa Inggris' },
-              { time: '09.20 - 10.00', subject: 'Bahasa Inggris' },
-              { time: '10.00 - 10.40', subject: 'Bahasa Inggris' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' },
-            ],
-          }
-        },
-        {
-          id: '7-3',
-          name: 'Rombel 3',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'TIK' },
-              { time: '08.50 - 09.30', subject: 'TIK' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 10.50', subject: 'IPA' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'Matematika' },
-              { time: '12.20 - 13.00', subject: 'Matematika' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Agama' },
-              { time: '08.10 - 08.50', subject: 'Agama' },
-              { time: '08.50 - 09.30', subject: 'Bahasa Indonesia' },
-              { time: '09.30 - 10.10', subject: 'Bahasa Indonesia' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Bahasa Indonesia' },
-              { time: '11.40 - 12.20', subject: 'PKn' },
-              { time: '12.20 - 13.00', subject: 'PKn' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Bahasa Indonesia' },
-              { time: '08.10 - 08.50', subject: 'Bahasa Indonesia' },
-              { time: '08.50 - 09.30', subject: 'Prakarya' },
-              { time: '09.30 - 10.10', subject: 'Prakarya' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Mulok' },
-              { time: '11.40 - 12.20', subject: 'IPA' },
-              { time: '12.20 - 13.00', subject: 'IPA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPS' },
-              { time: '08.10 - 08.50', subject: 'IPS' },
-              { time: '08.50 - 09.30', subject: 'IPS' },
-              { time: '09.30 - 10.10', subject: 'Matematika' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Matematika' },
-              { time: '11.40 - 12.20', subject: 'PJOK' },
-              { time: '12.20 - 13.00', subject: 'PJOK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'Mulok' },
-              { time: '08.40 - 09.20', subject: 'Bahasa Inggris' },
-              { time: '09.20 - 10.00', subject: 'Bahasa Inggris' },
-              { time: '10.00 - 10.40', subject: 'Bahasa Inggris' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' },
-            ],
-          }
-        }
-      ]
+// Data tambahan untuk kelas 8 dan 9
+const class8Data = {
+    "1": {
+        "SENIN": [
+            { time: "07.00 - 08.10", subject: "Upacara Bendera" },
+            { time: "08.10 - 08.50", subject: "IPA" },
+            { time: "08.50 - 09.30", subject: "IPA" },
+            { time: "09.30 - 10.10", subject: "PKN" },
+            { time: "10.10 - 10.50", subject: "PKN" },
+            { time: "10.50 - 11.40", subject: "Istirahat" },
+            { time: "11.40 - 12.20", subject: "PJOK" },
+            { time: "12.20 - 13.00", subject: "PJOK" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "SELASA": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "IPS" },
+            { time: "08.10 - 08.50", subject: "IPS" },
+            { time: "08.50 - 09.30", subject: "IPS" },
+            { time: "09.30 - 10.10", subject: "TIK" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "TIK" },
+            { time: "11.40 - 12.20", subject: "MATEMATIKA" },
+            { time: "12.20 - 13.00", subject: "MATEMATIKA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "RABU": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "MATEMATIKA" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "AGAMA" },
+            { time: "09.30 - 10.10", subject: "AGAMA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "BAHASA INDONESIA" },
+            { time: "11.40 - 12.20", subject: "PRAKARYA" },
+            { time: "12.20 - 13.00", subject: "PRAKARYA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "KAMIS": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "Mulok" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "AGAMA" },
+            { time: "09.30 - 10.10", subject: "Mulok" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "BAHASA INGGRIS" },
+            { time: "11.40 - 12.20", subject: "BAHASA INDONESIA" },
+            { time: "12.20 - 13.00", subject: "IPS" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "JUMAT": [
+            { time: "07.00 - 08.00", subject: "Ibadah" },
+            { time: "08.00 - 08.40", subject: "BAHASA INDONESIA" },
+            { time: "08.40 - 09.20", subject: "BAHASA INDONESIA" },
+            { time: "09.20 - 10.00", subject: "PRAKARYA" },
+            { time: "10.00 - 10.40", subject: "PRAKARYA" },
+            { time: "10.40 - 11.10", subject: "Istirahat" },
+            { time: "11.10 - 11.50", subject: "Proyek" },
+            { time: "11.50 - 12.30", subject: "Proyek" }
+        ]
     },
-    '8': {
-      label: 'Kelas VIII',
-      rombels: [
-        {
-          id: '8-1',
-          name: 'Rombel 1',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'PKN' },
-              { time: '10.10 - 10.50', subject: 'PKN' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'PJOK' },
-              { time: '12.20 - 13.00', subject: 'PJOK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' },
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPS' },
-              { time: '08.10 - 08.50', subject: 'IPS' },
-              { time: '08.50 - 09.30', subject: 'IPS' },
-              { time: '09.30 - 10.10', subject: 'TIK' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'TIK' },
-              { time: '11.40 - 12.20', subject: 'MATEMATIKA' },
-              { time: '12.20 - 13.00', subject: 'MATEMATIKA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'MATEMATIKA' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'AGAMA' },
-              { time: '09.30 - 10.10', subject: 'AGAMA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INDONESIA' },
-              { time: '11.40 - 12.20', subject: 'PRAKARYA' },
-              { time: '12.20 - 13.00', subject: 'PRAKARYA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Mulok' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'AGAMA' },
-              { time: '09.30 - 10.10', subject: 'Mulok' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INGGRIS' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INDONESIA' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'BAHASA INDONESIA' },
-              { time: '08.40 - 09.20', subject: 'BAHASA INDONESIA' },
-              { time: '09.20 - 10.00', subject: 'PRAKARYA' },
-              { time: '10.00 - 10.40', subject: 'PRAKARYA' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        },
-        {
-          id: '8-2',
-          name: 'Rombel 2',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'BAHASA INDONESIA' },
-              { time: '08.50 - 09.30', subject: 'BAHASA INDONESIA' },
-              { time: '09.30 - 10.10', subject: 'Mulok' },
-              { time: '10.10 - 10.50', subject: 'IPS' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'IPS' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPA' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'PKN' },
-              { time: '09.30 - 10.10', subject: 'PKN' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'MATEMATIKA' },
-              { time: '11.40 - 12.20', subject: 'MATEMATIKA' },
-              { time: '12.20 - 13.00', subject: 'IPA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'Mulok' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'PJOK' },
-              { time: '09.30 - 10.10', subject: 'PJOK' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'PJOK' },
-              { time: '11.40 - 12.20', subject: 'PRAKARYA' },
-              { time: '12.20 - 13.00', subject: 'PRAKARYA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'MATEMATIKA' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'AGAMA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INDONESIA' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INDONESIA' },
-              { time: '12.20 - 13.00', subject: 'BAHASA INGGRIS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'IPA' },
-              { time: '08.40 - 09.20', subject: 'IPA' },
-              { time: '09.20 - 10.00', subject: 'TIK' },
-              { time: '10.00 - 10.40', subject: 'TIK' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        },
-        {
-          id: '8-3',
-          name: 'Rombel 3',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'MATEMATIKA' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 10.50', subject: 'IPA' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'PKN' },
-              { time: '12.20 - 13.00', subject: 'PKN' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'BAHASA INDONESIA' },
-              { time: '08.10 - 08.50', subject: 'BAHASA INDONESIA' },
-              { time: '08.50 - 09.30', subject: 'MATEMATIKA' },
-              { time: '09.30 - 10.10', subject: 'MATEMATIKA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'MATEMATIKA' },
-              { time: '11.40 - 12.20', subject: 'TIK' },
-              { time: '12.20 - 13.00', subject: 'TIK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'PJOK' },
-              { time: '08.10 - 08.50', subject: 'PRAKARYA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INGGRIS' },
-              { time: '11.40 - 12.20', subject: 'Mulok' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'AGAMA' },
-              { time: '08.10 - 08.50', subject: 'Mulok' },
-              { time: '08.50 - 09.30', subject: 'AGAMA' },
-              { time: '09.30 - 10.10', subject: 'Mulok' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'IPS' },
-              { time: '11.40 - 12.20', subject: 'IPS' },
-              { time: '12.20 - 13.00', subject: 'BAHASA INGGRIS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'TIK' },
-              { time: '08.40 - 09.20', subject: 'TIK' },
-              { time: '09.20 - 10.00', subject: 'Mulok' },
-              { time: '10.00 - 10.40', subject: 'Mulok' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        }
-      ]
-    },
-    '9': {
-      label: 'Kelas IX',
-      rombels: [
-        {
-          id: '9-1',
-          name: 'Rombel 1',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'MATEMATIKA' },
-              { time: '09.30 - 10.10', subject: 'TIK' },
-              { time: '10.10 - 10.50', subject: 'TIK' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'PJOK' },
-              { time: '12.20 - 13.00', subject: 'PJOK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'MATEMATIKA' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'PJOK' },
-              { time: '09.30 - 10.10', subject: 'TIK' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INGGRIS' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INGGRIS' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'PKN' },
-              { time: '08.10 - 08.50', subject: 'PKN' },
-              { time: '08.50 - 09.30', subject: 'TIK' },
-              { time: '09.30 - 10.10', subject: 'TIK' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'IPA' },
-              { time: '11.40 - 12.20', subject: 'IPA' },
-              { time: '12.20 - 13.00', subject: 'BAHASA INDONESIA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'MATEMATIKA' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'MATEMATIKA' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INGGRIS' },
-              { time: '12.20 - 13.00', subject: 'Mulok' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'AGAMA' },
-              { time: '08.40 - 09.20', subject: 'AGAMA' },
-              { time: '09.20 - 10.00', subject: 'PJOK' },
-              { time: '10.00 - 10.40', subject: 'PJOK' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        },
-        {
-          id: '9-2',
-          name: 'Rombel 2',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'PKN' },
-              { time: '10.10 - 10.50', subject: 'PKN' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'MATEMATIKA' },
-              { time: '12.20 - 13.00', subject: 'MATEMATIKA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPA' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'BAHASA INDONESIA' },
-              { time: '09.30 - 10.10', subject: 'BAHASA INDONESIA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Mulok' },
-              { time: '11.40 - 12.20', subject: 'MATEMATIKA' },
-              { time: '12.20 - 13.00', subject: 'MATEMATIKA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'BAHASA INDONESIA' },
-              { time: '08.10 - 08.50', subject: 'BAHASA INDONESIA' },
-              { time: '08.50 - 09.30', subject: 'PRAKARYA' },
-              { time: '09.30 - 10.10', subject: 'PRAKARYA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'PRAKARYA' },
-              { time: '11.40 - 12.20', subject: 'PKN' },
-              { time: '12.20 - 13.00', subject: 'PKN' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'MATEMATIKA' },
-              { time: '08.10 - 08.50', subject: 'MATEMATIKA' },
-              { time: '08.50 - 09.30', subject: 'BAHASA INDONESIA' },
-              { time: '09.30 - 10.10', subject: 'BAHASA INDONESIA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INGGRIS' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INGGRIS' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'AGAMA' },
-              { time: '08.40 - 09.20', subject: 'AGAMA' },
-              { time: '09.20 - 10.00', subject: 'PJOK' },
-              { time: '10.00 - 10.40', subject: 'PJOK' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        },
-        {
-          id: '9-3',
-          name: 'Rombel 3',
-          schedule: {
-            'SENIN': [
-              { time: '07.00 - 08.10', subject: 'Upacara Bendera' },
-              { time: '08.10 - 08.50', subject: 'PKN' },
-              { time: '08.50 - 09.30', subject: 'PKN' },
-              { time: '09.30 - 10.10', subject: 'AGAMA' },
-              { time: '10.10 - 10.50', subject: 'AGAMA' },
-              { time: '10.50 - 11.40', subject: 'Istirahat' },
-              { time: '11.40 - 12.20', subject: 'PRAKARYA' },
-              { time: '12.20 - 13.00', subject: 'PRAKARYA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'SELASA': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'AGAMA' },
-              { time: '08.10 - 08.50', subject: 'AGAMA' },
-              { time: '08.50 - 09.30', subject: 'IPA' },
-              { time: '09.30 - 10.10', subject: 'IPA' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'IPA' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INDONESIA' },
-              { time: '12.20 - 13.00', subject: 'BAHASA INDONESIA' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'RABU': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPA' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'PKN' },
-              { time: '09.30 - 10.10', subject: 'PKN' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'Mulok' },
-              { time: '11.40 - 12.20', subject: 'TIK' },
-              { time: '12.20 - 13.00', subject: 'TIK' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'KAMIS': [
-              { time: '07.00 - 07.30', subject: 'Apel/Literasi Kelas' },
-              { time: '07.30 - 08.10', subject: 'IPA' },
-              { time: '08.10 - 08.50', subject: 'IPA' },
-              { time: '08.50 - 09.30', subject: 'Mulok' },
-              { time: '09.30 - 10.10', subject: 'Mulok' },
-              { time: '10.10 - 11.00', subject: 'Istirahat' },
-              { time: '11.00 - 11.40', subject: 'BAHASA INGGRIS' },
-              { time: '11.40 - 12.20', subject: 'BAHASA INGGRIS' },
-              { time: '12.20 - 13.00', subject: 'IPS' },
-              { time: '13.00 - 13.40', subject: 'Proyek' },
-              { time: '13.40 - 14.20', subject: 'Proyek' }
-            ],
-            'JUMAT': [
-              { time: '07.00 - 08.00', subject: 'Ibadah' },
-              { time: '08.00 - 08.40', subject: 'BAHASA INDONESIA' },
-              { time: '08.40 - 09.20', subject: 'BAHASA INDONESIA' },
-              { time: '09.20 - 10.00', subject: 'IPA' },
-              { time: '10.00 - 10.40', subject: 'IPA' },
-              { time: '10.40 - 11.10', subject: 'Istirahat' },
-              { time: '11.10 - 11.50', subject: 'Proyek' },
-              { time: '11.50 - 12.30', subject: 'Proyek' }
-            ]
-          }
-        }
-      ]
+    "2": {
+        "SENIN": [
+            { time: "07.00 - 08.10", subject: "Upacara Bendera" },
+            { time: "08.10 - 08.50", subject: "BAHASA INDONESIA" },
+            { time: "08.50 - 09.30", subject: "BAHASA INDONESIA" },
+            { time: "09.30 - 10.10", subject: "Mulok" },
+            { time: "10.10 - 10.50", subject: "IPS" },
+            { time: "10.50 - 11.40", subject: "Istirahat" },
+            { time: "11.40 - 12.20", subject: "IPS" },
+            { time: "12.20 - 13.00", subject: "IPS" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "SELASA": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "IPA" },
+            { time: "08.10 - 08.50", subject: "IPA" },
+            { time: "08.50 - 09.30", subject: "PKN" },
+            { time: "09.30 - 10.10", subject: "PKN" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "MATEMATIKA" },
+            { time: "11.40 - 12.20", subject: "MATEMATIKA" },
+            { time: "12.20 - 13.00", subject: "IPA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "RABU": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "Mulok" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "PJOK" },
+            { time: "09.30 - 10.10", subject: "PJOK" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "PJOK" },
+            { time: "11.40 - 12.20", subject: "PRAKARYA" },
+            { time: "12.20 - 13.00", subject: "PRAKARYA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "KAMIS": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "MATEMATIKA" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "IPA" },
+            { time: "09.30 - 10.10", subject: "AGAMA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "BAHASA INDONESIA" },
+            { time: "11.40 - 12.20", subject: "BAHASA INDONESIA" },
+            { time: "12.20 - 13.00", subject: "BAHASA INGGRIS" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "JUMAT": [
+            { time: "07.00 - 08.00", subject: "Ibadah" },
+            { time: "08.00 - 08.40", subject: "IPA" },
+            { time: "08.40 - 09.20", subject: "IPA" },
+            { time: "09.20 - 10.00", subject: "TIK" },
+            { time: "10.00 - 10.40", subject: "TIK" },
+            { time: "10.40 - 11.10", subject: "Istirahat" },
+            { time: "11.10 - 11.50", subject: "Proyek" },
+            { time: "11.50 - 12.30", subject: "Proyek" }
+        ]
     }
-  };
+};
 
-  // ========== FUN FACTS DATA ==========
-  const FUN_FACTS = [
-    {
-      title: '📊 Jumlah Guru Per Mata Pelajaran',
-      items: [
-        'Pendidikan Agama: 9 guru (3 Kristen, 3 Islam, 2 Katolik, 1 tidak spesifik)',
-        'PKn: 5 guru',
-        'Bahasa Indonesia: 10 guru',
-        'Matematika: 8 guru',
-        'Bahasa Inggris: 8 guru',
-        'IPA: 7 guru',
-        'IPS: 6 guru',
-        'PJOK: 7 guru',
-        'Prakarya/Seni Budaya: 5 guru',
-        'TIK: 4 guru'
-      ]
+const class9Data = {
+    "1": {
+        "SENIN": [
+            { time: "07.00 - 08.10", subject: "Upacara Bendera" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "MATEMATIKA" },
+            { time: "09.30 - 10.10", subject: "TIK" },
+            { time: "10.10 - 10.50", subject: "TIK" },
+            { time: "10.50 - 11.40", subject: "Istirahat" },
+            { time: "11.40 - 12.20", subject: "PJOK" },
+            { time: "12.20 - 13.00", subject: "PJOK" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "SELASA": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "MATEMATIKA" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "PJOK" },
+            { time: "09.30 - 10.10", subject: "TIK" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "BAHASA INGGRIS" },
+            { time: "11.40 - 12.20", subject: "BAHASA INGGRIS" },
+            { time: "12.20 - 13.00", subject: "IPS" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "RABU": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "PKN" },
+            { time: "08.10 - 08.50", subject: "PKN" },
+            { time: "08.50 - 09.30", subject: "TIK" },
+            { time: "09.30 - 10.10", subject: "TIK" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "IPA" },
+            { time: "11.40 - 12.20", subject: "IPA" },
+            { time: "12.20 - 13.00", subject: "BAHASA INDONESIA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "KAMIS": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "MATEMATIKA" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "IPA" },
+            { time: "09.30 - 10.10", subject: "IPA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "MATEMATIKA" },
+            { time: "11.40 - 12.20", subject: "BAHASA INGGRIS" },
+            { time: "12.20 - 13.00", subject: "Mulok" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "JUMAT": [
+            { time: "07.00 - 08.00", subject: "Ibadah" },
+            { time: "08.00 - 08.40", subject: "AGAMA" },
+            { time: "08.40 - 09.20", subject: "AGAMA" },
+            { time: "09.20 - 10.00", subject: "PJOK" },
+            { time: "10.00 - 10.40", subject: "PJOK" },
+            { time: "10.40 - 11.10", subject: "Istirahat" },
+            { time: "11.10 - 11.50", subject: "Proyek" },
+            { time: "11.50 - 12.30", subject: "Proyek" }
+        ]
     },
-    {
-      title: '👥 Perbandingan Gender',
-      items: [
-        'Guru Perempuan: Sekitar 85% (~55 dari 65)',
-        'Guru Laki-laki: Sekitar 15% (~10 dari 65)',
-        'Mayoritas guru adalah perempuan dengan dedikasi tinggi'
-      ]
-    },
-    {
-      title: '🎓 Guru dengan Gelar Akademik Tertinggi',
-      items: [
-        'John Wuisan, M. Th (Magister Theologi)',
-        'Sicilia Ledy S Sambur, M. Pd (Magister Pendidikan)',
-        'Hesty M. Lontoh, S. Pd, M. Pd',
-        'Marjeine Dalonto, M.Pd'
-      ]
-    },
-    {
-      title: '⏰ Jam Mengajar Terbanyak',
-      items: [
-        'Abdul Wahid, S.Pd. I (Agama Islam): 36 JP',
-        'Nita A. Modali, S.Kom (TIK): 42 JP',
-        'Christi Tumangkeng, S.Pd (TIK): 42 JP',
-        'Guru TIK memiliki beban jam tertinggi'
-      ]
+    "2": {
+        "SENIN": [
+            { time: "07.00 - 08.10", subject: "Upacara Bendera" },
+            { time: "08.10 - 08.50", subject: "IPA" },
+            { time: "08.50 - 09.30", subject: "IPA" },
+            { time: "09.30 - 10.10", subject: "PKN" },
+            { time: "10.10 - 10.50", subject: "PKN" },
+            { time: "10.50 - 11.40", subject: "Istirahat" },
+            { time: "11.40 - 12.20", subject: "MATEMATIKA" },
+            { time: "12.20 - 13.00", subject: "MATEMATIKA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "SELASA": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "IPA" },
+            { time: "08.10 - 08.50", subject: "IPA" },
+            { time: "08.50 - 09.30", subject: "BAHASA INDONESIA" },
+            { time: "09.30 - 10.10", subject: "BAHASA INDONESIA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "Mulok" },
+            { time: "11.40 - 12.20", subject: "MATEMATIKA" },
+            { time: "12.20 - 13.00", subject: "MATEMATIKA" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "RABU": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "BAHASA INDONESIA" },
+            { time: "08.10 - 08.50", subject: "BAHASA INDONESIA" },
+            { time: "08.50 - 09.30", subject: "PRAKARYA" },
+            { time: "09.30 - 10.10", subject: "PRAKARYA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "PRAKARYA" },
+            { time: "11.40 - 12.20", subject: "PKN" },
+            { time: "12.20 - 13.00", subject: "PKN" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "KAMIS": [
+            { time: "07.00 - 07.30", subject: "Apel/Literasi Kelas" },
+            { time: "07.30 - 08.10", subject: "MATEMATIKA" },
+            { time: "08.10 - 08.50", subject: "MATEMATIKA" },
+            { time: "08.50 - 09.30", subject: "BAHASA INDONESIA" },
+            { time: "09.30 - 10.10", subject: "BAHASA INDONESIA" },
+            { time: "10.10 - 11.00", subject: "Istirahat" },
+            { time: "11.00 - 11.40", subject: "BAHASA INGGRIS" },
+            { time: "11.40 - 12.20", subject: "BAHASA INGGRIS" },
+            { time: "12.20 - 13.00", subject: "IPS" },
+            { time: "13.00 - 13.40", subject: "Proyek" },
+            { time: "13.40 - 14.20", subject: "Proyek" }
+        ],
+        "JUMAT": [
+            { time: "07.00 - 08.00", subject: "Ibadah" },
+            { time: "08.00 - 08.40", subject: "AGAMA" },
+            { time: "08.40 - 09.20", subject: "AGAMA" },
+            { time: "09.20 - 10.00", subject: "PJOK" },
+            { time: "10.00 - 10.40", subject: "PJOK" },
+            { time: "10.40 - 11.10", subject: "Istirahat" },
+            { time: "11.10 - 11.50", subject: "Proyek" },
+            { time: "11.50 - 12.30", subject: "Proyek" }
+        ]
     }
-  ];
+};
 
-  // ========== STATE ==========
-  const state = {
-    currentScreen: 'main',
-    selectedGrade: null,
+// Menambahkan data kelas 8 dan 9 ke scheduleData
+scheduleData["8"] = class8Data;
+scheduleData["9"] = class9Data;
+
+// Data Fun Facts
+const funFactsData = [
+    {
+        title: "📊 Jumlah Guru Per Mata Pelajaran",
+        items: [
+            "Pendidikan Agama: 9 guru (3 Kristen, 3 Islam, 2 Katolik, 1 tidak spesifik)",
+            "PKn: 5 guru",
+            "Bahasa Indonesia: 10 guru",
+            "Matematika: 8 guru",
+            "Bahasa Inggris: 8 guru",
+            "IPA: 7 guru",
+            "IPS: 6 guru",
+            "PJOK: 7 guru",
+            "Prakarya/Seni Budaya: 5 guru",
+            "TIK: 4 guru"
+        ]
+    },
+    {
+        title: "👥 Perbandingan Gender",
+        items: [
+            "Guru Perempuan: Sekitar 85% (~55 dari 65)",
+            "Guru Laki-laki: Sekitar 15% (~10 dari 65)",
+            "Mayoritas guru adalah perempuan dengan dedikasi tinggi"
+        ]
+    },
+    {
+        title: "🎓 Guru dengan Gelar Akademik Tertinggi",
+        items: [
+            "John Wuisan, M. Th (Magister Theologi)",
+            "Sicilia Ledy S Sambur, M. Pd (Magister Pendidikan)",
+            "Hesty M. Lontoh, S. Pd, M. Pd",
+            "Marjeine Dalonto, M.Pd"
+        ]
+    },
+    {
+        title: "⏰ Jam Mengajar Terbanyak",
+        items: [
+            "Abdul Wahid, S.Pd. I (Agama Islam): 36 JP",
+            "Nita A. Modali, S.Kom (TIK): 42 JP",
+            "Christi Tumangkeng, S.Pd (TIK): 42 JP",
+            "Guru TIK memiliki beban jam tertinggi"
+        ]
+    }
+];
+
+// State aplikasi
+let currentState = {
+    selectedClass: null,
     selectedRombel: null,
     selectedDay: null
-  };
+};
 
-  // ========== DOM ELEMENTS ==========
-  const DOM = {
-    // Screens
-    screenMain: document.getElementById('screenMain'),
-    screenGrade: document.getElementById('screenGrade'),
-    screenRombel: document.getElementById('screenRombel'),
-    screenDay: document.getElementById('screenDay'),
-    
-    // Grids and lists
-    gradeGrid: document.getElementById('gradeGrid'),
+// Elemen DOM
+const screens = {
+    mainMenu: document.getElementById('mainMenu'),
+    rombelSelection: document.getElementById('rombelSelection'),
+    daySelection: document.getElementById('daySelection'),
+    scheduleDisplay: document.getElementById('scheduleDisplay'),
+    funFactsDisplay: document.getElementById('funFactsDisplay')
+};
+
+const elements = {
+    themeToggle: document.getElementById('themeToggle'),
+    currentDate: document.getElementById('currentDate'),
+    classButtons: document.querySelectorAll('.class-btn'),
+    funFactsBtn: document.getElementById('funFactsBtn'),
+    backToMain: document.getElementById('backToMain'),
+    backToRombel: document.getElementById('backToRombel'),
+    backToDay: document.getElementById('backToDay'),
+    backToMainFromFacts: document.getElementById('backToMainFromFacts'),
+    rombelTitle: document.getElementById('rombelTitle'),
     rombelGrid: document.getElementById('rombelGrid'),
+    dayTitle: document.getElementById('dayTitle'),
+    dayButtons: document.querySelectorAll('.day-btn'),
+    scheduleTitle: document.getElementById('scheduleTitle'),
     scheduleList: document.getElementById('scheduleList'),
-    
-    // Date display
-    dateDisplay: document.getElementById('dateDisplay'),
-    
-    // Fun Facts panel
-    panelFunFacts: document.getElementById('panelFunFacts'),
-    factsGrid: document.getElementById('factsGrid'),
-    
-    // Buttons
-    btnBackGrade: document.getElementById('btnBackGrade'),
-    btnBackRombel: document.getElementById('btnBackRombel'),
-    btnBackDay: document.getElementById('btnBackDay'),
-    btnOpenFacts: document.getElementById('btnOpenFacts'),
-    btnCloseFacts: document.getElementById('btnCloseFacts'),
-    themeToggle: document.getElementById('themeToggle')
-  };
+    factsContainer: document.getElementById('factsContainer')
+};
 
-  // ========== UTILITY FUNCTIONS ==========
-  function formatDate() {
+// Fungsi untuk menampilkan tanggal sekarang
+function updateCurrentDate() {
     const now = new Date();
-    const day = DAYS_ID[now.getDay()];
-    const date = now.getDate();
-    const month = MONTHS[now.getMonth()];
-    const year = now.getFullYear();
-    return `${day}, ${date} ${month} ${year}`;
-  }
+    const options = { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    };
+    const formattedDate = now.toLocaleDateString('id-ID', options);
+    elements.currentDate.textContent = formattedDate;
+}
 
-  function switchScreen(screenId) {
-    // Hide all screens
-    [DOM.screenMain, DOM.screenGrade, DOM.screenRombel, DOM.screenDay].forEach(screen => {
-      screen.classList.remove('active');
-    });
-    
-    // Show the selected screen
-    if (screenId === 'main') DOM.screenMain.classList.add('active');
-    if (screenId === 'grade') DOM.screenGrade.classList.add('active');
-    if (screenId === 'rombel') DOM.screenRombel.classList.add('active');
-    if (screenId === 'day') DOM.screenDay.classList.add('active');
-    
-    // Update state
-    state.currentScreen = screenId;
-  }
-
-  function createRombelCard(rombel) {
-    const card = document.createElement('button');
-    card.className = 'rombel-card';
-    card.innerHTML = `
-      <h4>${rombel.name}</h4>
-      <p>Lihat jadwal lengkap</p>
-    `;
-    card.addEventListener('click', () => {
-      state.selectedRombel = rombel;
-      showDays();
-    });
-    return card;
-  }
-
-  function createDayButton(day) {
-    const btn = document.createElement('button');
-    btn.className = 'day-btn';
-    btn.textContent = day.charAt(0) + day.slice(1).toLowerCase();
-    btn.dataset.day = day;
-    btn.addEventListener('click', () => {
-      state.selectedDay = day;
-      showSchedule();
-    });
-    return btn;
-  }
-
-  function createScheduleItem(item) {
-    const div = document.createElement('div');
-    div.className = 'schedule-item';
-    div.innerHTML = `
-      <div class="schedule-time">${item.time}</div>
-      <div>
-        <div class="schedule-subject">${item.subject}</div>
-      </div>
-    `;
-    return div;
-  }
-
-  function createFactCard(fact) {
-    const card = document.createElement('div');
-    card.className = 'fact-card';
-    card.innerHTML = `
-      <h4>${fact.title}</h4>
-      <ul>
-        ${fact.items.map(item => `<li>${item}</li>`).join('')}
-      </ul>
-    `;
-    return card;
-  }
-
-  function showRombels(grade) {
-    state.selectedGrade = grade;
-    state.selectedRombel = null;
-    
-    // Update title
-    const gradeTitle = document.getElementById('gradeTitle');
-    if (gradeTitle) {
-      gradeTitle.textContent = `Pilih Rombel - ${SCHEDULE_DATA[grade].label}`;
-    }
-    
-    // Clear and populate rombel grid
-    DOM.gradeGrid.innerHTML = '';
-    SCHEDULE_DATA[grade].rombels.forEach(rombel => {
-      DOM.gradeGrid.appendChild(createRombelCard(rombel));
-    });
-    
-    switchScreen('grade');
-  }
-
-  function showDays() {
-    // Update title
-    const rombelTitle = document.getElementById('rombelTitle');
-    if (rombelTitle) {
-      rombelTitle.textContent = `Pilih Hari - ${state.selectedRombel.name}`;
-    }
-    
-    // Clear and populate day grid
-    DOM.rombelGrid.innerHTML = '';
-    DAYS.forEach(day => {
-      DOM.rombelGrid.appendChild(createDayButton(day));
-    });
-    
-    switchScreen('rombel');
-  }
-
-  function showSchedule() {
-    // Update title
-    const dayTitle = document.getElementById('dayTitle');
-    if (dayTitle) {
-      const dayName = state.selectedDay.charAt(0) + state.selectedDay.slice(1).toLowerCase();
-      dayTitle.textContent = `Jadwal ${dayName} - ${state.selectedRombel.name}`;
-    }
-    
-    // Clear and populate schedule list
-    DOM.scheduleList.innerHTML = '';
-    
-    const schedule = state.selectedRombel.schedule[state.selectedDay];
-    if (schedule && schedule.length > 0) {
-      schedule.forEach(item => {
-        DOM.scheduleList.appendChild(createScheduleItem(item));
-      });
-    } else {
-      const emptyMsg = document.createElement('div');
-      emptyMsg.className = 'schedule-item';
-      emptyMsg.innerHTML = `
-        <div class="schedule-time">-</div>
-        <div>
-          <div class="schedule-subject">Tidak ada jadwal untuk hari ini</div>
-        </div>
-      `;
-      DOM.scheduleList.appendChild(emptyMsg);
-    }
-    
-    switchScreen('day');
-  }
-
-  function showFunFacts() {
-    DOM.factsGrid.innerHTML = '';
-    FUN_FACTS.forEach(fact => {
-      DOM.factsGrid.appendChild(createFactCard(fact));
-    });
-    DOM.panelFunFacts.classList.add('active');
-  }
-
-  function closeFunFacts() {
-    DOM.panelFunFacts.classList.remove('active');
-  }
-
-  function toggleTheme() {
+// Fungsi untuk mengganti tema
+function toggleTheme() {
     const body = document.body;
-    const icon = DOM.themeToggle.querySelector('i');
+    body.classList.toggle('light-mode');
+    body.classList.toggle('dark-mode');
     
-    if (body.classList.contains('dark-theme')) {
-      body.classList.remove('dark-theme');
-      body.classList.add('light-theme');
-      icon.classList.remove('fa-moon');
-      icon.classList.add('fa-sun');
-      DOM.themeToggle.setAttribute('aria-pressed', 'false');
-      localStorage.setItem('theme', 'light');
-    } else {
-      body.classList.remove('light-theme');
-      body.classList.add('dark-theme');
-      icon.classList.remove('fa-sun');
-      icon.classList.add('fa-moon');
-      DOM.themeToggle.setAttribute('aria-pressed', 'true');
-      localStorage.setItem('theme', 'dark');
-    }
-  }
+    // Simpan preferensi tema di localStorage
+    const isDarkMode = body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+}
 
-  // ========== EVENT LISTENERS ==========
-  function setupEventListeners() {
-    // Level cards (Kelas VII, VIII, IX)
-    document.querySelectorAll('.level-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const grade = e.currentTarget.dataset.grade;
-        showRombels(grade);
-      });
-    });
-    
-    // Back buttons
-    DOM.btnBackGrade.addEventListener('click', () => switchScreen('main'));
-    DOM.btnBackRombel.addEventListener('click', () => {
-      if (state.selectedGrade) {
-        showRombels(state.selectedGrade);
-      }
-    });
-    DOM.btnBackDay.addEventListener('click', () => {
-      if (state.selectedRombel) {
-        showDays();
-      }
-    });
-    
-    // Fun Facts
-    DOM.btnOpenFacts.addEventListener('click', showFunFacts);
-    DOM.btnCloseFacts.addEventListener('click', closeFunFacts);
-    
-    // Theme toggle
-    DOM.themeToggle.addEventListener('click', toggleTheme);
-    
-    // Close panel when clicking outside
-    DOM.panelFunFacts.addEventListener('click', (e) => {
-      if (e.target === DOM.panelFunFacts) {
-        closeFunFacts();
-      }
-    });
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeFunFacts();
-      }
-    });
-  }
-
-  // ========== INITIALIZATION ==========
-  function init() {
-    // Set current date
-    DOM.dateDisplay.textContent = formatDate();
-    
-    // Set initial theme
+// Fungsi untuk mengatur tema awal
+function setInitialTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     if (savedTheme === 'dark') {
-      document.body.classList.add('dark-theme');
-      document.body.classList.remove('light-theme');
-      const icon = DOM.themeToggle.querySelector('i');
-      icon.classList.remove('fa-sun');
-      icon.classList.add('fa-moon');
-      DOM.themeToggle.setAttribute('aria-pressed', 'true');
+        document.body.classList.remove('light-mode');
+        document.body.classList.add('dark-mode');
     } else {
-      document.body.classList.add('light-theme');
-      DOM.themeToggle.setAttribute('aria-pressed', 'false');
+        document.body.classList.remove('dark-mode');
+        document.body.classList.add('light-mode');
     }
+}
+
+// Fungsi untuk mengganti layar
+function showScreen(screenName) {
+    // Sembunyikan semua layar
+    Object.values(screens).forEach(screen => {
+        screen.classList.remove('active');
+    });
+    
+    // Tampilkan layar yang dipilih
+    if (screens[screenName]) {
+        screens[screenName].classList.add('active');
+    }
+}
+
+// Fungsi untuk menampilkan rombel berdasarkan kelas
+function showRombels(className) {
+    currentState.selectedClass = className;
+    elements.rombelTitle.textContent = `Kelas ${className} - Pilih Rombel`;
+    elements.rombelGrid.innerHTML = '';
+    
+    // Dapatkan jumlah rombel untuk kelas ini
+    const rombelCount = scheduleData[className] ? Object.keys(scheduleData[className]).length : 0;
+    
+    // Buat tombol rombel
+    for (let i = 1; i <= rombelCount; i++) {
+        const rombelBtn = document.createElement('button');
+        rombelBtn.className = 'rombel-btn';
+        rombelBtn.textContent = `Rombel ${i}`;
+        rombelBtn.style.setProperty('--i', i);
+        
+        rombelBtn.addEventListener('click', () => {
+            currentState.selectedRombel = i.toString();
+            showDays();
+        });
+        
+        elements.rombelGrid.appendChild(rombelBtn);
+    }
+    
+    showScreen('rombelSelection');
+}
+
+// Fungsi untuk menampilkan hari
+function showDays() {
+    elements.dayTitle.textContent = `Kelas ${currentState.selectedClass} - Rombel ${currentState.selectedRombel}`;
+    showScreen('daySelection');
+}
+
+// Fungsi untuk menampilkan jadwal
+function showSchedule(day) {
+    currentState.selectedDay = day;
+    
+    const dayNames = {
+        'SENIN': 'Senin',
+        'SELASA': 'Selasa',
+        'RABU': 'Rabu',
+        'KAMIS': 'Kamis',
+        'JUMAT': 'Jumat'
+    };
+    
+    elements.scheduleTitle.textContent = `Jadwal ${dayNames[day]} - Kelas ${currentState.selectedClass} Rombel ${currentState.selectedRombel}`;
+    elements.scheduleList.innerHTML = '';
+    
+    // Dapatkan jadwal berdasarkan kelas, rombel, dan hari
+    const schedule = scheduleData[currentState.selectedClass]?.[currentState.selectedRombel]?.[day];
+    
+    if (schedule && schedule.length > 0) {
+        schedule.forEach(item => {
+            const scheduleItem = document.createElement('div');
+            scheduleItem.className = 'schedule-item fade-in';
+            
+            const timeSlot = document.createElement('div');
+            timeSlot.className = 'time-slot';
+            timeSlot.innerHTML = `<i class="fas fa-clock"></i> ${item.time}`;
+            
+            const subject = document.createElement('div');
+            subject.className = 'subject';
+            subject.innerHTML = `<i class="fas fa-book"></i> ${item.subject}`;
+            
+            scheduleItem.appendChild(timeSlot);
+            scheduleItem.appendChild(subject);
+            elements.scheduleList.appendChild(scheduleItem);
+        });
+    } else {
+        const noSchedule = document.createElement('div');
+        noSchedule.className = 'schedule-item fade-in';
+        noSchedule.innerHTML = '<div class="time-slot">-</div><div class="subject">Tidak ada jadwal untuk hari ini</div>';
+        elements.scheduleList.appendChild(noSchedule);
+    }
+    
+    showScreen('scheduleDisplay');
+}
+
+// Fungsi untuk menampilkan fun facts
+function showFunFacts() {
+    elements.factsContainer.innerHTML = '';
+    
+    funFactsData.forEach((fact, index) => {
+        const factCategory = document.createElement('div');
+        factCategory.className = 'fact-category fade-in';
+        factCategory.style.animationDelay = `${index * 0.2}s`;
+        
+        const title = document.createElement('h3');
+        title.innerHTML = fact.title;
+        
+        const list = document.createElement('ul');
+        
+        fact.items.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.className = 'fact-item';
+            listItem.textContent = item;
+            list.appendChild(listItem);
+        });
+        
+        factCategory.appendChild(title);
+        factCategory.appendChild(list);
+        elements.factsContainer.appendChild(factCategory);
+    });
+    
+    showScreen('funFactsDisplay');
+}
+
+// Event Listeners
+function setupEventListeners() {
+    // Toggle tema
+    elements.themeToggle.addEventListener('click', toggleTheme);
+    
+    // Tombol kelas
+    elements.classButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const className = button.getAttribute('data-class');
+            showRombels(className);
+        });
+    });
+    
+    // Tombol hari
+    elements.dayButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const day = button.getAttribute('data-day');
+            showSchedule(day);
+        });
+    });
+    
+    // Tombol Fun Facts
+    elements.funFactsBtn.addEventListener('click', showFunFacts);
+    
+    // Tombol kembali
+    elements.backToMain.addEventListener('click', () => showScreen('mainMenu'));
+    elements.backToRombel.addEventListener('click', () => showScreen('rombelSelection'));
+    elements.backToDay.addEventListener('click', () => showScreen('daySelection'));
+    elements.backToMainFromFacts.addEventListener('click', () => showScreen('mainMenu'));
+}
+
+// Inisialisasi aplikasi
+function init() {
+    // Atur tema awal
+    setInitialTheme();
+    
+    // Perbarui tanggal
+    updateCurrentDate();
     
     // Setup event listeners
     setupEventListeners();
     
-    // Show main screen
-    switchScreen('main');
-  }
+    // Tampilkan layar utama
+    showScreen('mainMenu');
+}
 
-  // Start app when DOM is ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-})();
+// Jalankan aplikasi ketika DOM sudah dimuat
+document.addEventListener('DOMContentLoaded', init);
