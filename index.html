@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link rel="stylesheet" href="style.css" />
+  
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body class="theme-animated-bg">
 
@@ -23,7 +24,7 @@
         <span>SPENDU <strong>BITUNG</strong></span>
       </div>
       <div class="topbar-actions">
-        <div id="currentTime" class="time-display">00:00:00</div>
+        <div id="currentTime" class="time-display" style="display:none;">00:00:00</div>
         <button id="themeToggle" class="icon-btn" title="Ganti Tema">
           <i class="fas fa-moon"></i>
         </button>
@@ -31,9 +32,10 @@
     </header>
 
     <main id="app-content">
+      
       <section id="mainMenu" class="screen active">
         <div class="hero">
-          <div class="hero-text">
+          <div class="hero-info">
             <h1 class="hero-title">Jadwal Pelajaran</h1>
             <p class="hero-sub" id="today">Memuat tanggal...</p>
           </div>
@@ -57,8 +59,8 @@
           </button>
         </div>
 
-        <div style="text-align: center;">
-          <button id="openFunFacts" class="btn primary">
+        <div style="text-align:center;">
+          <button id="openFunFacts" class="btn ghost">
             <i class="fas fa-lightbulb"></i> Tahukah Kamu?
           </button>
         </div>
@@ -66,7 +68,7 @@
 
       <section id="rombelSelection" class="screen">
         <nav class="nav-row">
-          <button id="backToMain" class="btn ghost">
+          <button id="backToMain" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
           <h2 id="rombelTitle" class="section-title">Pilih Rombel</h2>
@@ -77,7 +79,7 @@
 
       <section id="daySelection" class="screen">
         <nav class="nav-row">
-          <button id="backToRombel" class="btn ghost">
+          <button id="backToRombel" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
           <h2 id="dayTitle" class="section-title">Pilih Hari</h2>
@@ -93,7 +95,7 @@
 
       <section id="scheduleDisplay" class="screen">
         <nav class="nav-row">
-          <button id="backToDay" class="btn ghost">
+          <button id="backToDay" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
           <h2 id="scheduleTitle" class="section-title">Jadwal</h2>
@@ -101,6 +103,7 @@
         <div id="scheduleList" class="schedule-list">
           </div>
       </section>
+
     </main>
 
     <footer class="footer">
@@ -117,7 +120,6 @@
       </div>
   </aside>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
-
