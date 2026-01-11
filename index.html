@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Jadwal Pelajaran Interaktif SMP Negeri 2 Bitung - Lihat jadwal kelas VII, VIII, IX dengan fitur pencarian yang mudah dan responsif." />
+  <meta name="description" content="Jadwal Pelajaran Interaktif SMP Negeri 2 Bitung." />
   <meta name="theme-color" content="#0f1724" />
   
   <title>Jadwal Pelajaran — SMP Negeri 2 Bitung</title>
@@ -11,12 +11,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="theme-animated-bg">
 
   <div class="container">
     <header class="topbar">
@@ -25,7 +23,7 @@
         <span>SPENDU <strong>BITUNG</strong></span>
       </div>
       <div class="topbar-actions">
-        <div id="currentTime" class="time-display">00:00:00</div>
+        <div id="currentTime" class="time-display" style="display:none;">00:00:00</div>
         <button id="themeToggle" class="icon-btn" title="Ganti Tema">
           <i class="fas fa-moon"></i>
         </button>
@@ -33,57 +31,70 @@
     </header>
 
     <main id="app-content">
+      
       <section id="mainMenu" class="screen active">
         <div class="hero">
-          <h1 class="hero-title">Jadwal Pelajaran</h1>
-          <p class="hero-subtitle" id="currentDateDisplay">Memuat tanggal...</p>
+          <div class="hero-info">
+            <h1 class="hero-title">Jadwal Pelajaran</h1>
+            <p class="hero-sub" id="today">Memuat tanggal...</p>
+          </div>
+          <div class="hero-visual">
+            <span class="badge">TP 2024/2025</span>
+          </div>
         </div>
         
-        <div class="menu-grid">
-          <button class="level-btn" data-level="7">
+        <div class="levels">
+          <button class="level-btn" data-grade="7">
             <span>7</span>
-            <p>KELAS VII</p>
+            <small>KELAS VII</small>
           </button>
-          <button class="level-btn" data-level="8">
+          <button class="level-btn" data-grade="8">
             <span>8</span>
-            <p>KELAS VIII</p>
+            <small>KELAS VIII</small>
           </button>
-          <button class="level-btn" data-level="9">
+          <button class="level-btn" data-grade="9">
             <span>9</span>
-            <p>KELAS IX</p>
+            <small>KELAS IX</small>
           </button>
         </div>
 
-        <button id="openFunFacts" class="btn secondary">
-          <i class="fas fa-lightbulb"></i> Tahukah Kamu?
-        </button>
+        <div style="text-align:center;">
+          <button id="openFunFacts" class="btn ghost">
+            <i class="fas fa-lightbulb"></i> Tahukah Kamu?
+          </button>
+        </div>
       </section>
 
-      <section id="levelScreen" class="screen">
+      <section id="rombelSelection" class="screen">
         <nav class="nav-row">
-          <button id="backToMain" class="btn ghost">
+          <button id="backToMain" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
-          <h2 id="levelTitle" class="section-title">Pilih Rombel</h2>
+          <h2 id="rombelTitle" class="section-title">Pilih Rombel</h2>
         </nav>
-        <div id="rombelsList" class="rombels-grid">
+        <div id="rombelGrid" class="grid grid--rombel">
           </div>
       </section>
 
-      <section id="dayScreen" class="screen">
+      <section id="daySelection" class="screen">
         <nav class="nav-row">
-          <button id="backToLevel" class="btn ghost">
+          <button id="backToRombel" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
-          <h2 id="rombelTitle" class="section-title">Pilih Hari</h2>
+          <h2 id="dayTitle" class="section-title">Pilih Hari</h2>
         </nav>
-        <div id="daysList" class="days-grid">
-          </div>
+        <div class="grid grid--days">
+          <button class="day-btn" data-day="SENIN">SENIN</button>
+          <button class="day-btn" data-day="SELASA">SELASA</button>
+          <button class="day-btn" data-day="RABU">RABU</button>
+          <button class="day-btn" data-day="KAMIS">KAMIS</button>
+          <button class="day-btn" data-day="JUMAT">JUMAT</button>
+        </div>
       </section>
 
-      <section id="scheduleScreen" class="screen">
+      <section id="scheduleDisplay" class="screen">
         <nav class="nav-row">
-          <button id="backToDay" class="btn ghost">
+          <button id="backToDay" class="btn ghost small">
             <i class="fas fa-arrow-left"></i> Kembali
           </button>
           <h2 id="scheduleTitle" class="section-title">Jadwal</h2>
@@ -91,6 +102,7 @@
         <div id="scheduleList" class="schedule-list">
           </div>
       </section>
+
     </main>
 
     <footer class="footer">
@@ -98,7 +110,7 @@
     </footer>
   </div>
 
-  <aside class="panel" id="funFactsPanel">
+  <aside class="panel" id="funFactsPanel" aria-hidden="true">
     <div class="panel-header">
       <h3><i class="fas fa-lightbulb"></i> Fun Facts</h3>
       <button id="closeFunFacts" class="icon-btn"><i class="fas fa-times"></i></button>
