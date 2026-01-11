@@ -1,367 +1,208 @@
 <!DOCTYPE html>
-
 <html lang="id">
-
 <head>
-
   <meta charset="utf-8" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
   <meta name="description" content="Jadwal Pelajaran Interaktif SMP Negeri 2 Bitung - Lihat jadwal kelas VII, VIII, IX dengan fitur pencarian yang mudah dan responsif." />
-
   <meta name="theme-color" content="#0f1724" />
-
   <meta name="apple-mobile-web-app-capable" content="yes" />
-
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-
   
-
   <title>Jadwal Pelajaran — SMP Negeri 2 Bitung</title>
 
-
-
   <!-- Preconnect untuk optimasi loading font -->
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
   
-
-  <!-- Google Fonts dengan font-display:  swap untuk performa lebih baik -->
-
+  <!-- Google Fonts dengan font-display: swap untuk performa lebih baik -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-
-
   <!-- Styles -->
-
   <link rel="stylesheet" href="css/style.css" />
 
-
-  <!-- Font Awesome Icons (dengan integrity yang valid) -->
-
+  <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2V2cewL9QjyIEBaKyxb4vf/IoJ2T4ebD0aE/VnRqTmFkGoXnKmEjYbVLNXGKGKrJ8GLqg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
-
   <!-- Fallback untuk JavaScript disabled -->
-
   <noscript>
-
     <style>
-
-      body { background:  #0f1724; color: #e6eef6; font-family: system-ui, -apple-system, sans-serif; padding: 20px; }
-
-      .noscript-warning { background: #e74c3c; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-
+      body { 
+        background: #0f1724; 
+        color: #e6eef6; 
+        font-family: system-ui, -apple-system, sans-serif; 
+        padding: 20px; 
+        margin: 0;
+      }
+      .noscript-warning { 
+        background: #e74c3c; 
+        color: white; 
+        padding: 20px; 
+        border-radius: 8px; 
+        margin-bottom: 20px; 
+        max-width: 800px;
+        margin: 0 auto 20px;
+      }
+      .container { 
+        max-width: 800px; 
+        margin: 0 auto; 
+        padding: 20px;
+      }
     </style>
-
   </noscript>
-
 </head>
-
-<body class="light theme-animated-bg" id="app">
-
+<body class="theme-animated-bg">
   <!-- Warning untuk JavaScript disabled -->
-
   <noscript>
-
     <div class="noscript-warning" role="alert">
-
       <strong>⚠️ JavaScript Diperlukan</strong>
-
-      <p>Aplikasi ini memerlukan JavaScript untuk berfungsi dengan baik.  Silakan aktifkan JavaScript di browser Anda.</p>
-
+      <p>Aplikasi ini memerlukan JavaScript untuk berfungsi dengan baik. Silakan aktifkan JavaScript di browser Anda.</p>
     </div>
-
   </noscript>
-
-
 
   <!-- Top Controls / Header -->
-
-  <header class="topbar" role="banner">
-
-    <div class="top-left">
-
-      <h1 class="brand">
-
-        <i class="fas fa-school" aria-hidden="true"></i>
-
+  <header class="header" role="banner">
+    <div class="header__content">
+      <div class="brand">
+        <i class="fas fa-school brand__icon" aria-hidden="true"></i>
         <span>SMPN 2 Bitung</span>
-
-      </h1>
-
-      <div id="today" class="date" aria-live="polite" aria-atomic="true">Loading...</div>
-
-    </div>
-
-
-
-    <div class="top-right">
-
-      <button 
-
-        id="themeToggle" 
-
-        class="icon-btn" 
-
-        title="Ganti tema (Tekan untuk switch dark/light)" 
-
-        aria-pressed="false"
-
-        aria-label="Toggle tema gelap/terang"
-
-      >
-
-        <i class="fas fa-sun" aria-hidden="true"></i>
-
-      </button>
-
+      </div>
       
-
-      <button 
-
-        id="openFunFacts" 
-
-        class="btn primary small" 
-
-        aria-label="Buka panel fun facts"
-
-      >
-
-        <i class="fas fa-lightbulb" aria-hidden="true"></i>
-
-        <span>Fun Facts</span>
-
-      </button>
-
+      <div id="dateDisplay" class="date" aria-live="polite" aria-atomic="true">Loading...</div>
+      
+      <div class="header__actions">
+        <button 
+          id="themeToggle" 
+          class="btn btn--icon" 
+          title="Ganti tema (Tekan untuk switch dark/light)" 
+          aria-pressed="false"
+          aria-label="Toggle tema gelap/terang"
+        >
+          <i class="fas fa-sun" aria-hidden="true"></i>
+        </button>
+        
+        <button 
+          id="btnOpenFacts" 
+          class="btn btn--primary small" 
+          aria-label="Buka panel fun facts"
+        >
+          <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          <span>Fun Facts</span>
+        </button>
+      </div>
     </div>
-
   </header>
 
-
-
   <main class="container" role="main">
-
     <!-- SCREEN 1: MAIN MENU -->
-
-    <section class="screen screen--main active" id="mainMenu" aria-labelledby="mainTitle">
-
-      <h2 id="mainTitle" class="visually-hidden">Pilih Tingkat Kelas</h2>
-
-
-
+    <section class="screen active" id="screenMain" aria-labelledby="mainTitle">
       <div class="hero">
-
-        <div>
-
-          <h2 class="hero-title">Jadwal Pelajaran</h2>
-
-          <p class="hero-sub">Pilih tingkat untuk melihat rombel & jadwal lengkap</p>
-
+        <div class="hero__content">
+          <h1 id="mainTitle" class="hero__title">Jadwal Pelajaran</h1>
+          <p class="hero__sub">Pilih tingkat untuk melihat rombel & jadwal lengkap</p>
+          <div class="hero__badge">
+            <i class="fas fa-sparkles" aria-hidden="true"></i>
+            Interaktif • Animasi Halus
+          </div>
         </div>
-
-        <div class="hero-visual" aria-hidden="true">
-
-          <div class="badge">Interaktif • Animasi Halus</div>
-
+        <div class="hero__visual" aria-hidden="true">
+          <i class="fas fa-calendar-alt" style="font-size: 4rem; color: rgba(255,255,255,0.2);"></i>
         </div>
-
       </div>
-
-
 
       <div class="levels" role="list">
-
-        <button class="level-btn" data-grade="7" type="button" aria-label="Kelas VII">
-
-          <span aria-hidden="true">VII</span>
-
-          <small>Kelas 7</small>
-
+        <button class="level-card" data-grade="7" type="button" aria-label="Kelas VII">
+          <div class="level-card__number">VII</div>
+          <div class="level-card__label">Kelas 7</div>
         </button>
-
-        <button class="level-btn" data-grade="8" type="button" aria-label="Kelas VIII">
-
-          <span aria-hidden="true">VIII</span>
-
-          <small>Kelas 8</small>
-
+        <button class="level-card" data-grade="8" type="button" aria-label="Kelas VIII">
+          <div class="level-card__number">VIII</div>
+          <div class="level-card__label">Kelas 8</div>
         </button>
-
-        <button class="level-btn" data-grade="9" type="button" aria-label="Kelas IX">
-
-          <span aria-hidden="true">IX</span>
-
-          <small>Kelas 9</small>
-
+        <button class="level-card" data-grade="9" type="button" aria-label="Kelas IX">
+          <div class="level-card__number">IX</div>
+          <div class="level-card__label">Kelas 9</div>
         </button>
-
       </div>
-
     </section>
 
-
-
-    <!-- SCREEN 2: ROMBEL SELECTION -->
-
-    <section class="screen" id="rombelSelection" aria-hidden="true" aria-labelledby="rombelTitle">
-
-      <nav class="nav-row" role="navigation" aria-label="Navigasi kembali">
-
-        <button id="backToMain" class="btn ghost" type="button" aria-label="Kembali ke menu utama">
-
+    <!-- SCREEN 2: GRADE SELECTION (Rombel) -->
+    <section class="screen" id="screenGrade" aria-hidden="true" aria-labelledby="gradeTitle">
+      <div class="screen-header">
+        <button id="btnBackGrade" class="btn btn--back" type="button" aria-label="Kembali ke menu utama">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-
           <span>Kembali</span>
-
         </button>
-
-        <h2 id="rombelTitle" class="section-title">Rombel</h2>
-
-      </nav>
-
-
-
-      <div id="rombelGrid" class="grid grid--rombel" role="list">
-
-        <!-- Populated by JavaScript -->
-
+        <h2 id="gradeTitle" class="screen-title">Pilih Rombongan Belajar</h2>
+        <div style="width: 100px;"></div> <!-- Spacer untuk alignment -->
       </div>
 
+      <div id="gradeGrid" class="grid grid--cols-2" role="list">
+        <!-- Rombel akan diisi oleh JavaScript -->
+      </div>
     </section>
 
-
-
-    <!-- SCREEN 3: DAY SELECTION -->
-
-    <section class="screen" id="daySelection" aria-hidden="true" aria-labelledby="dayTitle">
-
-      <nav class="nav-row" role="navigation" aria-label="Navigasi kembali">
-
-        <button id="backToRombel" class="btn ghost" type="button" aria-label="Kembali ke pemilihan rombel">
-
+    <!-- SCREEN 3: ROMBEL SELECTION (Hari) -->
+    <section class="screen" id="screenRombel" aria-hidden="true" aria-labelledby="rombelTitle">
+      <div class="screen-header">
+        <button id="btnBackRombel" class="btn btn--back" type="button" aria-label="Kembali ke pemilihan rombel">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-
           <span>Kembali</span>
-
         </button>
-
-        <h2 id="dayTitle" class="section-title">Pilih Hari</h2>
-
-      </nav>
-
-
-
-      <div class="grid grid--days">
-
-        <button class="day-btn" data-day="SENIN" type="button" aria-label="Jadwal Senin">Senin</button>
-
-        <button class="day-btn" data-day="SELASA" type="button" aria-label="Jadwal Selasa">Selasa</button>
-
-        <button class="day-btn" data-day="RABU" type="button" aria-label="Jadwal Rabu">Rabu</button>
-
-        <button class="day-btn" data-day="KAMIS" type="button" aria-label="Jadwal Kamis">Kamis</button>
-
-        <button class="day-btn" data-day="JUMAT" type="button" aria-label="Jadwal Jumat">Jumat</button>
-
+        <h2 id="rombelTitle" class="screen-title">Pilih Hari</h2>
+        <div style="width: 100px;"></div> <!-- Spacer untuk alignment -->
       </div>
 
+      <div id="rombelGrid" class="days-grid">
+        <!-- Hari akan diisi oleh JavaScript -->
+      </div>
     </section>
 
-
-
-    <!-- SCREEN 4: SCHEDULE DISPLAY -->
-
-    <section class="screen" id="scheduleDisplay" aria-hidden="true" aria-labelledby="scheduleTitle">
-
-      <nav class="nav-row" role="navigation" aria-label="Navigasi kembali">
-
-        <button id="backToDay" class="btn ghost" type="button" aria-label="Kembali ke pemilihan hari">
-
+    <!-- SCREEN 4: DAY SELECTION (Jadwal) -->
+    <section class="screen" id="screenDay" aria-hidden="true" aria-labelledby="dayTitle">
+      <div class="screen-header">
+        <button id="btnBackDay" class="btn btn--back" type="button" aria-label="Kembali ke pemilihan hari">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-
           <span>Kembali</span>
-
         </button>
-
-        <h2 id="scheduleTitle" class="section-title">Jadwal</h2>
-
-      </nav>
-
-
+        <h2 id="dayTitle" class="screen-title">Jadwal Pelajaran</h2>
+        <div style="width: 100px;"></div> <!-- Spacer untuk alignment -->
+      </div>
 
       <div id="scheduleList" class="schedule-list" role="list">
-
-        <!-- Populated by JavaScript -->
-
+        <!-- Jadwal akan diisi oleh JavaScript -->
       </div>
-
     </section>
-
-
-
-    <!-- FUN FACTS PANEL (Modal-like) -->
-
-    <aside class="panel" id="funFactsPanel" aria-hidden="true" aria-labelledby="factsPanelTitle" role="complementary">
-
-      <div class="panel-header">
-
-        <h3 id="factsPanelTitle">
-
-          <i class="fas fa-lightbulb" aria-hidden="true"></i>
-
-          Fun Facts Sekolah
-
-        </h3>
-
-        <button 
-
-          id="closeFunFacts" 
-
-          class="icon-btn" 
-
-          type="button"
-
-          aria-label="Tutup panel fun facts"
-
-        >
-
-          <i class="fas fa-times" aria-hidden="true"></i>
-
-        </button>
-
-      </div>
-
-      <div id="factsContainer" class="facts-grid">
-
-        <!-- Populated by JavaScript -->
-
-      </div>
-
-    </aside>
-
   </main>
 
-
+  <!-- FUN FACTS PANEL (Modal-like) -->
+  <aside class="panel" id="panelFunFacts" aria-hidden="true" aria-labelledby="factsPanelTitle" role="complementary">
+    <div class="panel__content">
+      <div class="panel__header">
+        <h3 id="factsPanelTitle" class="panel__title">
+          <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          Fun Facts Sekolah
+        </h3>
+        <button 
+          id="btnCloseFacts" 
+          class="btn btn--icon" 
+          type="button"
+          aria-label="Tutup panel fun facts"
+        >
+          <i class="fas fa-times" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div id="factsGrid" class="facts-grid">
+        <!-- Facts akan diisi oleh JavaScript -->
+      </div>
+    </div>
+  </aside>
 
   <!-- Footer -->
-
   <footer class="footer" role="contentinfo">
-
     <small>© 2026 SMP Negeri 2 Bitung — Jadwal Pelajaran Interaktif</small>
-
   </footer>
 
-
-
   <!-- Script -->
-
-  <script src="js/script.js" defer></script>  
+  <script src="js/script.js" defer></script>
 </body>
-
-    </html>
+  </html>
