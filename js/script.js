@@ -2600,7 +2600,7 @@ let currentState = {
 const screens = {
     mainMenu: document.getElementById('mainMenu'),
     rombelSelection: document.getElementById('rombelSelection'),
-    daySelection: document. getElementById('daySelection'),
+    daySelection: document.getElementById('daySelection'),
     scheduleDisplay: document.getElementById('scheduleDisplay'),
     funFactsDisplay: document.getElementById('funFactsDisplay')
 };
@@ -2647,7 +2647,7 @@ function setInitialTheme() {
         document.body.classList.remove('light-mode');
         document.body.classList.add('dark-mode');
     } else {
-        document.body. classList.remove('dark-mode');
+        document.body.classList.remove('dark-mode');
         document.body.classList. add('light-mode');
     }
 }
@@ -2655,7 +2655,7 @@ function setInitialTheme() {
 // ===== FUNGSI NAVIGASI LAYAR =====
 function showScreen(screenName) {
     Object.values(screens).forEach(screen => {
-        screen.classList. remove('active');
+        screen.classList.remove('active');
     });
     
     if (screens[screenName]) {
@@ -2737,7 +2737,7 @@ function showSchedule(day) {
     if (schedule && schedule.length > 0) {
         schedule.forEach((item, index) => {
             const scheduleItem = document.createElement('div');
-            scheduleItem. className = 'schedule-item fade-in';
+            scheduleItem.className = 'schedule-item fade-in';
             scheduleItem.style.animationDelay = `${index * 0.1}s`;
             
             const timeSlot = document.createElement('div');
@@ -2745,7 +2745,7 @@ function showSchedule(day) {
             timeSlot.innerHTML = `<i class="fas fa-clock"></i> ${item.time}`;
             
             const subject = document. createElement('div');
-            subject. className = 'subject';
+            subject.className = 'subject';
             subject.innerHTML = `<i class="fas fa-book"></i> ${item.subject}`;
             
             scheduleItem.appendChild(timeSlot);
@@ -2804,14 +2804,14 @@ function controlBackButton(show, targetScreen = null) {
         
         backButton.classList.remove('hide');
         setTimeout(() => {
-            backButton. classList.add('show');
+            backButton.classList.add('show');
         }, 10);
     } else {
         backButton.classList.remove('show');
-        backButton. classList.add('hide');
+        backButton.classList.add('hide');
         
         setTimeout(() => {
-            backButton. classList.remove('hide');
+            backButton.classList.remove('hide');
             backButton.onclick = null;
         }, 300);
     }
@@ -2821,7 +2821,7 @@ function controlBackButton(show, targetScreen = null) {
 function setupEventListeners() {
     elements.themeToggle.addEventListener('click', toggleTheme);
     
-    elements.classButtons. forEach(button => {
+    elements.classButtons.forEach(button => {
         button.addEventListener('click', () => {
             const className = button.getAttribute('data-class');
             showRombels(className);
@@ -2846,5 +2846,6 @@ function init() {
     setupEventListeners();
     showScreen('mainMenu');
 }
+
 
 document.addEventListener('DOMContentLoaded', init);
